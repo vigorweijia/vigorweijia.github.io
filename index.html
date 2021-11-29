@@ -71,6 +71,129 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python-cpp-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/29/python-cpp-class/" class="article-date">
+  <time class="dt-published" datetime="2021-11-29T15:54:31.000Z" itemprop="datePublished">2021-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="使用ctypes在Python中调用C-class"><a href="#使用ctypes在Python中调用C-class" class="headerlink" title="使用ctypes在Python中调用C++ class"></a>使用ctypes在Python中调用C++ class</h3><p>ctypes是python中自带的包，可以方便的调用C语言代码，但是无法直接调用C++代码</p>
+<p>首先定义希望被使用的C++类Foo，声明和实现如下</p>
+<p>foo.h:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H__</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Foo</span>();</span><br><span class="line">	<span class="built_in">Foo</span>(<span class="keyword">int</span>);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>foo.cpp:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Foo::<span class="built_in">Foo</span>() &#123; val = <span class="number">0</span>; &#125;</span><br><span class="line">Foo::<span class="built_in">Foo</span>(<span class="keyword">int</span> a) &#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Foo::Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::hello</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;Hello Foo!&quot;</span> &lt;&lt; std::endl;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要为Class Foo编写一个C语言的调用接口，并将接口的实现导出为动态链接库，方便在Python中调用。</p>
+<p>接口interface.h实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __CD_INTERFACE_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CD_INTERFACE_H__</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLEXPORT __declspec(dllexport)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">	<span class="comment">// DLLEXPORT Foo* FooNew(); C Language doesn&#x27;t support overload</span></span><br><span class="line">	<span class="function">DLLEXPORT Foo* <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(Foo*, <span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(Foo*)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(Foo*)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>extern “C”表示告诉编译器以C语言的方式编译下面的代码，C语言不支持class，而且重载也是无效的</p>
+<p>接口的实现implementation.cpp如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;interface.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Foo* FooNew() &#123;</span></span><br><span class="line"><span class="comment">	return new Foo();</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">Foo* <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Foo</span>(a);&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(Foo* foo, <span class="keyword">int</span> a)</span> </span>&#123; foo-&gt;<span class="built_in">Set</span>(a); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(Foo* foo)</span> </span>&#123; <span class="keyword">return</span> foo-&gt;<span class="built_in">Get</span>(); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(Foo* foo)</span> </span>&#123; foo-&gt;<span class="built_in">hello</span>(); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>将implementation.cpp导出为动态链接库，就可以在Python中使用了。为了方便使用，需要在Python中重新将Foo封装为一个类，而且需要定义C语言函的参数和返回值类型，否则可能会报错，完整的Python代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line">dll = ctypes.cdll.LoadLibrary(<span class="string">&quot;D:/PythonUseC/foo_inter.dll&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val</span>):</span></span><br><span class="line">        dll.FooNew.argtypes = [ctypes.c_int]</span><br><span class="line">        dll.FooNew.restype = ctypes.c_void_p</span><br><span class="line"></span><br><span class="line">        dll.FooGet.argtypes = [ctypes.c_void_p]</span><br><span class="line">        dll.FooGet.restype = ctypes.c_int</span><br><span class="line"></span><br><span class="line">        dll.FooSet.argtypes = [ctypes.c_void_p, ctypes.c_int]</span><br><span class="line"></span><br><span class="line">        dll.FooHello.argtypes = [ctypes.c_void_p]</span><br><span class="line"></span><br><span class="line">        self.obj = dll.FooNew(val)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> dll.FooGet(self.obj)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span>(<span class="params">self, val</span>):</span></span><br><span class="line">        dll.FooSet(self.obj, val)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hello</span>(<span class="params">self</span>):</span></span><br><span class="line">        dll.FooHello(self.obj)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo = Foo(<span class="number">1</span>)</span><br><span class="line">foo.hello()</span><br><span class="line"><span class="built_in">print</span>(foo.get())</span><br><span class="line">foo.<span class="built_in">set</span>(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(foo.get())</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/29/python-cpp-class/" data-id="ckwkutag0000dhcvm2q7b4nfp" data-title="使用ctypes在Python中调用C++ class" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-java-cpp-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/29/java-cpp-class/" class="article-date">
+  <time class="dt-published" datetime="2021-11-29T15:53:17.000Z" itemprop="datePublished">2021-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="Java中调用C-class"><a href="#Java中调用C-class" class="headerlink" title="Java中调用C++ class"></a>Java中调用C++ class</h3><p>一般使用Java自带的jni调用C++的函数，而无法直接调用C++的类，在javac -h中自动生成的头文件中，可以看到extern “C”关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。</p>
+<p>如果使用jni调用C++类，需要间接调用。C++的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来操作这个C++类。</p>
+<p>假设需要在Java中调用我们编写的Foo类</p>
+<p>声明Foo.h:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H__</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Foo</span>();</span><br><span class="line">	<span class="built_in">Foo</span>(<span class="keyword">int</span>);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>实现Foo.cpp:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Foo::<span class="built_in">Foo</span>() &#123; val = <span class="number">0</span>; &#125;</span><br><span class="line">Foo::<span class="built_in">Foo</span>(<span class="keyword">int</span> a) &#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Foo::Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::hello</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;Hello Foo!&quot;</span> &lt;&lt; std::endl;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要在Java中重新封装这个类，封装类的代码如UseCppClass.java所示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> nativeObjAddr; <span class="comment">//用于保存C++对象的地址，通过它找到C++的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(<span class="keyword">long</span> addr, <span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> String <span class="title">FooNoUse</span><span class="params">(<span class="keyword">long</span> addr, String s)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        FooSet(nativeObjAddr, a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooGet(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FooHello(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">NoUse</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooNoUse(nativeObjAddr, s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用指令javac -h . UseCppClass.java生成对应的头文件UseCppClass.h，将.h文件中的#include &lt;jni.h&gt;更改为#include “jni.h”后一并与jni.h和jni_md.h放入C++的项目文件中</p>
+<p>假设我们把Foo类的实现编译为了静态库.lib，使用implementation.cpp来实现UseCppClass.h中的所有函数并编译成动态库.dll，在实现中需要调用Foo类的实现。</p>
+<p>implementation.cpp的具体实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UseCppClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: ()J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>();</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: (I)J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__I</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jint a)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>((<span class="keyword">int</span>)a);</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooSet</span></span><br><span class="line"><span class="comment"> * Signature: (JI)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooSet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr, jint a)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">Set</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooGet</span></span><br><span class="line"><span class="comment"> * Signature: (J)I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jint JNICALL <span class="title">Java_UseCppClass_FooGet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((Foo*)addr)-&gt;<span class="built_in">Get</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooHello</span></span><br><span class="line"><span class="comment"> * Signature: (J)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooHello</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">hello</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNoUse</span></span><br><span class="line"><span class="comment"> * Signature: (JLjava/lang/String;)Ljava/lang/String;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_UseCppClass_FooNoUse</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject, jlong addr, jstring s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>完整的CMakeLists.txt如下</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.20</span>)</span><br><span class="line"><span class="keyword">project</span>(exportCppClass)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(WIN32)</span><br><span class="line">	<span class="keyword">add_definitions</span>(-DPLANTFORM_WINDOWS)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo STATIC <span class="string">&quot;include/foo.h&quot;</span> <span class="string">&quot;foo.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo_inter SHARED </span><br><span class="line">	<span class="string">&quot;include/foo.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/UseCppClass.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni_md.h&quot;</span></span><br><span class="line">	<span class="string">&quot;implementation.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo_inter PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(foo_inter foo)</span><br></pre></td></tr></table></figure>
+
+<p>把编译好的foo_inter.dll导入Java项目中，即可使用。</p>
+<p>用于测试的UseCppClassMain.java的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClassMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;foo_inter&quot;</span>);</span><br><span class="line">        UseCppClass useCppClass = <span class="keyword">new</span> UseCppClass();</span><br><span class="line">        useCppClass.Hello();</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">        useCppClass.Set(<span class="number">2</span>);</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/29/java-cpp-class/" data-id="ckwkutafv0005hcvmeds17ntq" data-title="Java中使用JNI调用C++ class" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-java-cpp-parameters" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/11/26/java-cpp-parameters/" class="article-date">
@@ -108,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/java-cpp-parameters/" data-id="ckwgfcb9y0002lcvm52foco76" data-title="在Windows上使用Java调用C++函数之参数传递和返回" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/26/java-cpp-parameters/" data-id="ckwkutafz000ahcvm19yzeihu" data-title="在Windows上使用Java调用C++函数之参数传递和返回" class="article-share-link">Share</a>
       
       
       
@@ -163,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/java-cpp/" data-id="ckwgfcba7000blcvm49x49b5t" data-title="在Windows上使用Java调用C++代码" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/26/java-cpp/" data-id="ckwkutafz000bhcvm27q64i2g" data-title="在Windows上使用Java调用C++代码" class="article-share-link">Share</a>
       
       
       
@@ -246,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/cmake-cpp-lib-windows/" data-id="ckwgfcb9z0003lcvmb4ktdtpw" data-title="利用CMake在Windows上编译并使用静态库和动态库" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/26/cmake-cpp-lib-windows/" data-id="ckwkutafo0001hcvm0d2w6ujv" data-title="利用CMake在Windows上编译并使用静态库和动态库" class="article-share-link">Share</a>
       
       
       
@@ -308,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/23/blogimg/" data-id="ckwgfcb9r0000lcvm5skx66sj" data-title="Hexo无法显示图片的问题" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/23/blogimg/" data-id="ckwkutafj0000hcvmdftq61ch" data-title="Hexo无法显示图片的问题" class="article-share-link">Share</a>
       
       
       
@@ -387,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/22/hexo-github-blog/" data-id="ckwgfcba10005lcvm0kwcgbv4" data-title="使用hexo和github搭建博客" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/22/hexo-github-blog/" data-id="ckwkutafr0002hcvmb94qfxvj" data-title="使用hexo和github搭建博客" class="article-share-link">Share</a>
       
       
       
@@ -440,7 +563,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/21/hello-world/" data-id="ckwgfcb9w0001lcvmbqkp1ms7" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/21/hello-world/" data-id="ckwkutaft0004hcvmg94s7zbi" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
@@ -497,6 +620,14 @@
       <ul>
         
           <li>
+            <a href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回</a>
           </li>
         
@@ -506,14 +637,6 @@
         
           <li>
             <a href="/2021/11/26/cmake-cpp-lib-windows/">利用CMake在Windows上编译并使用静态库和动态库</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/23/blogimg/">Hexo无法显示图片的问题</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/22/hexo-github-blog/">使用hexo和github搭建博客</a>
           </li>
         
       </ul>
