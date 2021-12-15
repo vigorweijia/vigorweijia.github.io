@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>从0到1手动实现多层感知机（MLP） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="多层感知机梯度下降法多元函数中，梯度是一个向量，表示多元函数在给定点上升的最快方向，实际上就是分别对每个自变量求偏导 假设$J(\boldsymbol{\theta})$是一个有三个自变量的多元函数，那么其梯度可以表示为$$\nabla J(\boldsymbol{\theta})&#x3D;(\frac{\partial J}{\partial \theta_1},\frac{\partial J}{\p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从0到1手动实现多层感知机（MLP）">
+<meta property="og:url" content="http://example.com/2021/12/11/bp/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="多层感知机梯度下降法多元函数中，梯度是一个向量，表示多元函数在给定点上升的最快方向，实际上就是分别对每个自变量求偏导 假设$J(\boldsymbol{\theta})$是一个有三个自变量的多元函数，那么其梯度可以表示为$$\nabla J(\boldsymbol{\theta})&#x3D;(\frac{\partial J}{\partial \theta_1},\frac{\partial J}{\p">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-11T13:32:07.000Z">
+<meta property="article:modified_time" content="2021-12-15T15:49:04.101Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="神经网络">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-bp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/12/11/bp/" class="article-date">
+  <time class="dt-published" datetime="2021-12-11T13:32:07.000Z" itemprop="datePublished">2021-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      从0到1手动实现多层感知机（MLP）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="多层感知机"><a href="#多层感知机" class="headerlink" title="多层感知机"></a>多层感知机</h3><h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>多元函数中，梯度是一个向量，表示多元函数在给定点上升的最快方向，实际上就是分别对每个自变量求偏导</p>
+<p>假设$J(\boldsymbol{\theta})$是一个有三个自变量的多元函数，那么其梯度可以表示为<br>$$<br>\nabla J(\boldsymbol{\theta})=(\frac{\partial J}{\partial \theta_1},\frac{\partial J}{\partial \theta_2},\frac{\partial J}{\partial \theta_3})<br>$$<br>梯度下降其实就是朝着负梯度的方向走，从而更新$\boldsymbol{\theta}$，步长$\alpha$表示学习率，公式表达如下<br>$$<br>\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\nabla J(\boldsymbol{\theta_t})<br>$$<br>由此可以找到$J(\boldsymbol{\theta})$的极小值</p>
+<h4 id="反向传播算法（BP算法）概述"><a href="#反向传播算法（BP算法）概述" class="headerlink" title="反向传播算法（BP算法）概述"></a>反向传播算法（BP算法）概述</h4><p>使用BP算法来训练多层前馈神经网络</p>
+<p><strong>正向传播</strong>：输入信息通过输入层经隐藏层，逐层处理并传向输出层</p>
+<p><strong>反向传播</strong>：将输出层的输出值与期望的输出值之间的误差作为<strong>损失函数</strong>（例如差值的平方和），转入反向传播，逐层求出损失函数对各神经元权值的偏导数，构成损失函数对权值向量的梯度，作为修改权值的依据，网络的学习在修改过程中完成</p>
+<h4 id="BP算法反向传播的推导"><a href="#BP算法反向传播的推导" class="headerlink" title="BP算法反向传播的推导"></a>BP算法反向传播的推导</h4><p>假设点$w_{mn}$表示连接神经元$m$和$n$的权重，其中$m$在$l-1$层，$n$在$l$层，$b_n$是连向神经元$n$的所有权重的偏置</p>
+<p>那么$w_{mn}$和$b_n$的更新公式可以表示为：<br>$$<br>\begin{aligned}<br>b_n’ &amp;\leftarrow b_n - \alpha \frac{\partial E}{\partial b_n} \<br>w_{mn}’ &amp;\leftarrow w_{mn} - \alpha \frac{\partial E}{\partial w_{mn}}<br>\end{aligned}<br>$$<br>其中$E$是前向传播输出与真实值之间的误差，这两个公式分别表示$w_{mn}$和$b_n$向减小误差的方向移动步长$\alpha$</p>
+<p>定义$n$号神经元（假设$n$在第$l$层）的误差$\delta_n=-\frac{\partial E}{\partial e_n}$，其中$e_n=\sum\limits_{i\in{l-1}}f(e_i)w_{in}+b_n$，表示上一层输出信号的加权和，$f$是激活函数。如果$l-1$是输入层，那么$f(e_i)=x_i$，即神经网络的输入值。</p>
+<p>由此上述的更新公式改写为：<br>$$<br>\begin{aligned}<br>\frac{\partial E}{\partial w_{mn}}&amp;=-\delta_n\frac{\partial e_n}{\partial w_{mn}}=-\delta_nf(e_m)\<br>\frac{\partial E}{\partial b_n}&amp;=-\delta_n\frac{\partial e_n}{\partial b_n}=-\delta_n<br>\end{aligned}<br>$$<br>​        <strong>对于输出层的特别推导</strong></p>
+<p>​        这部分的推导不是很严谨，只考虑了输出层其中的一个神经元$n$</p>
+<p>​        对于MSE loss，$E_n=\frac{1}{2}(z_n-y_n)^2$，其中$z_n$是真实值，$y_n=f(e_n)$是神经网络前向传播输出的估计值，假        设$n$是输出层神经元。<br>$$<br>\delta_n=-\frac{\partial E_n}{\partial e_n}=-\frac{\partial E_n}{\partial f(e_n)}\frac{\partial  f(e_n)}{\partial e_n}=[z-f(e_n)]f’(e_n)<br>$$<br>​        对于Cross Entropy loss，$E=-\sum\limits_{c\in Output Layer} z_clny_c$。如果$n$是输出层其中的一个神经元，$y_n$表示预测$n$为        正例的概率，若$n$真的为正例，那么$z_n=1$，否则$z_n=0$，也就是把多分类暂时看作了是否为$n$的二分类。<br>$$<br>\begin{aligned}<br>\delta_n&amp;=-\frac{\partial E}{\partial e_n}=-\frac{\partial E}{\partial f(e_n)}f’(e_n)=-\frac{\partial[-z_nlny_n-(1-z_n)ln(1-y_n)]}{\partial y_n}\<br>&amp;=\frac{z_n-y_n}{y_n(1-y_n)}f’(e_n)<br>\end{aligned}<br>$$<br>​        特别的，如果$f$是sigmoid函数，那么<br>$$<br>\delta_n=\frac{z_n-y_n}{y_n(1-y_n)}f’(e_n)=\frac{z_n-y_n}{y_n(1-y_n)}y_n(1-y_n)=z_n-y_n<br>$$<br>对于神经元$i$，假设$i$在第$l-1$层，后面一层为$l$，那么<br>$$<br>\delta_i=-\frac{\partial E}{\partial y_i}\frac{\partial f(e_i)}{\partial e_i}=-\frac{\partial E}{\partial y_i}f’(e_i)=-\frac{\partial E}{\partial y_l}\frac{\partial y_l}{\partial y_i}f’(e_i)<br>$$<br>其中$\frac{\partial E}{\partial y_l}=\delta_l$恰好是后面一层的误差向量（因为有多个神经元嘛）</p>
+<p>而<br>$$<br>\frac{\partial y_l}{\partial y_i}=\frac{\partial \sum\limits_{j\in l-1}y_jw_{jl}}{\partial y_i}=w_{il}<br>$$<br>表示从$i$连向后面一层的权重向量</p>
+<p>故$\delta_i=-\delta_l w_{il}f’(e_i)$，这个<strong>写法不太严谨</strong>，因为$\delta_i$应该是一个数值，不是一个向量，更准确的说，$\delta_i=-\delta_l^T w_{il}f’(e_i)$，表示后面一层的各神经元的$\delta$值和神经元$i$连向他们的权重相乘，再乘上神经元$i$处激活函数的导数。</p>
+<p>由此可以得到<br>$$<br>\begin{aligned}<br>b_n’ &amp;\leftarrow b_n - \alpha[-\delta_n] \<br>w_{mn}’ &amp;\leftarrow w_{mn} - \alpha[-\delta_nf(e_m)]<br>\end{aligned}<br>$$</p>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><p>具体实现中，我们仅使用numpy，不使用现有的深度学习框架，以加强理解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/12/11/bp/" data-id="ckx7pmgzc0000o8vm8vx4dq3m" data-title="从0到1手动实现多层感知机（MLP）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/29/python-cpp-class/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用ctypes在Python中调用C++ class</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">基础</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/12/11/bp/">从0到1手动实现多层感知机（MLP）</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/26/java-cpp/">在Windows上使用Java调用C++代码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
