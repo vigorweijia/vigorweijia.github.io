@@ -1,745 +1,597 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hexo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
   
+  
+  <meta name="author" content="John Doe">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
   
 <link rel="stylesheet" href="/css/style.css">
 
+
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: true,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+  
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+    <div class="center"> </div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
     </div>
-  </div>
-</header>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
 
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-bp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/12/11/bp/" class="article-date">
-  <time class="dt-published" datetime="2021-12-11T13:32:07.000Z" itemprop="datePublished">2021-12-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/12/11/bp/">从0到1手动实现多层感知机（MLP）</a>
-    </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="多层感知机"><a href="#多层感知机" class="headerlink" title="多层感知机"></a>多层感知机</h3><h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>多元函数中，梯度是一个向量，表示多元函数在给定点上升的最快方向，实际上就是分别对每个自变量求偏导</p>
-<p>假设$J(\boldsymbol{\theta})$是一个有三个自变量的多元函数，那么其梯度可以表示为<br>$$<br>\nabla J(\boldsymbol{\theta})=(\frac{\partial J}{\partial \theta_1},\frac{\partial J}{\partial \theta_2},\frac{\partial J}{\partial \theta_3})<br>$$<br>梯度下降其实就是朝着负梯度的方向走，从而更新$\boldsymbol{\theta}$，步长$\alpha$表示学习率，公式表达如下<br>$$<br>\boldsymbol{\theta}_{t+1}=\boldsymbol{\theta}_t-\nabla J(\boldsymbol{\theta_t})<br>$$<br>由此可以找到$J(\boldsymbol{\theta})$的极小值</p>
-<h4 id="反向传播算法（BP算法）概述"><a href="#反向传播算法（BP算法）概述" class="headerlink" title="反向传播算法（BP算法）概述"></a>反向传播算法（BP算法）概述</h4><p>使用BP算法来训练多层前馈神经网络</p>
-<p><strong>正向传播</strong>：输入信息通过输入层经隐藏层，逐层处理并传向输出层</p>
-<p><strong>反向传播</strong>：将输出层的输出值与期望的输出值之间的误差作为<strong>损失函数</strong>（例如差值的平方和），转入反向传播，逐层求出损失函数对各神经元权值的偏导数，构成损失函数对权值向量的梯度，作为修改权值的依据，网络的学习在修改过程中完成</p>
-<h4 id="BP算法反向传播的推导"><a href="#BP算法反向传播的推导" class="headerlink" title="BP算法反向传播的推导"></a>BP算法反向传播的推导</h4><p>假设点$w_{mn}$表示连接神经元$m$和$n$的权重，其中$m$在$l-1$层，$n$在$l$层，$b_n$是连向神经元$n$的所有权重的偏置</p>
-<p>那么$w_{mn}$和$b_n$的更新公式可以表示为：<br>$$<br>\begin{aligned}<br>b_n’ &amp;\leftarrow b_n - \alpha \frac{\partial E}{\partial b_n} \<br>w_{mn}’ &amp;\leftarrow w_{mn} - \alpha \frac{\partial E}{\partial w_{mn}}<br>\end{aligned}<br>$$<br>其中$E$是前向传播输出与真实值之间的误差，这两个公式分别表示$w_{mn}$和$b_n$向减小误差的方向移动步长$\alpha$</p>
-<p>定义$n$号神经元（假设$n$在第$l$层）的误差$\delta_n=-\frac{\partial E}{\partial e_n}$，其中$e_n=\sum\limits_{i\in{l-1}}f(e_i)w_{in}+b_n$，表示上一层输出信号的加权和，$f$是激活函数。如果$l-1$是输入层，那么$f(e_i)=x_i$，即神经网络的输入值。</p>
-<p>由此上述的更新公式改写为：<br>$$<br>\begin{aligned}<br>\frac{\partial E}{\partial w_{mn}}&amp;=-\delta_n\frac{\partial e_n}{\partial w_{mn}}=-\delta_nf(e_m)\<br>\frac{\partial E}{\partial b_n}&amp;=-\delta_n\frac{\partial e_n}{\partial b_n}=-\delta_n<br>\end{aligned}<br>$$<br>​        <strong>对于输出层的特别推导</strong></p>
-<p>​        这部分的推导不是很严谨，只考虑了输出层其中的一个神经元$n$</p>
-<p>​        对于MSE loss，$E_n=\frac{1}{2}(z_n-y_n)^2$，其中$z_n$是真实值，$y_n=f(e_n)$是神经网络前向传播输出的估计值，假        设$n$是输出层神经元。<br>$$<br>\delta_n=-\frac{\partial E_n}{\partial e_n}=-\frac{\partial E_n}{\partial f(e_n)}\frac{\partial  f(e_n)}{\partial e_n}=[z-f(e_n)]f’(e_n)<br>$$<br>​        对于Cross Entropy loss，$E=-\sum\limits_{c\in Output Layer} z_clny_c$。如果$n$是输出层其中的一个神经元，$y_n$表示预测$n$为        正例的概率，若$n$真的为正例，那么$z_n=1$，否则$z_n=0$，也就是把多分类暂时看作了是否为$n$的二分类。<br>$$<br>\begin{aligned}<br>\delta_n&amp;=-\frac{\partial E}{\partial e_n}=-\frac{\partial E}{\partial f(e_n)}f’(e_n)=-\frac{\partial[-z_nlny_n-(1-z_n)ln(1-y_n)]}{\partial y_n}\<br>&amp;=\frac{z_n-y_n}{y_n(1-y_n)}f’(e_n)<br>\end{aligned}<br>$$<br>​        特别的，如果$f$是sigmoid函数，那么<br>$$<br>\delta_n=\frac{z_n-y_n}{y_n(1-y_n)}f’(e_n)=\frac{z_n-y_n}{y_n(1-y_n)}y_n(1-y_n)=z_n-y_n<br>$$<br>对于神经元$i$，假设$i$在第$l-1$层，后面一层为$l$，那么<br>$$<br>\delta_i=-\frac{\partial E}{\partial y_i}\frac{\partial f(e_i)}{\partial e_i}=-\frac{\partial E}{\partial y_i}f’(e_i)=-\frac{\partial E}{\partial y_l}\frac{\partial y_l}{\partial y_i}f’(e_i)<br>$$<br>其中$\frac{\partial E}{\partial y_l}=\delta_l$恰好是后面一层的误差向量（因为有多个神经元嘛）</p>
-<p>而<br>$$<br>\frac{\partial y_l}{\partial y_i}=\frac{\partial \sum\limits_{j\in l-1}y_jw_{jl}}{\partial y_i}=w_{il}<br>$$<br>表示从$i$连向后面一层的权重向量</p>
-<p>故$\delta_i=-\delta_l w_{il}f’(e_i)$，这个<strong>写法不太严谨</strong>，因为$\delta_i$应该是一个数值，不是一个向量，更准确的说，$\delta_i=-\delta_l^T w_{il}f’(e_i)$，表示后面一层的各神经元的$\delta$值和神经元$i$连向他们的权重相乘，再乘上神经元$i$处激活函数的导数。</p>
-<p>由此可以得到<br>$$<br>\begin{aligned}<br>b_n’ &amp;\leftarrow b_n - \alpha[-\delta_n] \<br>w_{mn}’ &amp;\leftarrow w_{mn} - \alpha[-\delta_nf(e_m)]<br>\end{aligned}<br>$$</p>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><p>具体实现中，我们仅使用numpy，不使用现有的深度学习框架，以加强理解</p>
-
-      
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/12/11/bp/" data-id="ckx7pmgzc0000o8vm8vx4dq3m" data-title="从0到1手动实现多层感知机（MLP）" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-python-cpp-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/29/python-cpp-class/" class="article-date">
-  <time class="dt-published" datetime="2021-11-29T15:54:31.000Z" itemprop="datePublished">2021-11-29</time>
-</a>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline active"> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
     
   </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="使用ctypes在Python中调用C-class"><a href="#使用ctypes在Python中调用C-class" class="headerlink" title="使用ctypes在Python中调用C++ class"></a>使用ctypes在Python中调用C++ class</h3><p>ctypes是python中自带的包，可以方便的调用C语言代码，但是无法直接调用C++代码</p>
-<p>首先定义希望被使用的C++类Foo，声明和实现如下</p>
-<p>foo.h:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H__</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Foo</span>();</span><br><span class="line">	<span class="built_in">Foo</span>(<span class="keyword">int</span>);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>foo.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Foo::<span class="built_in">Foo</span>() &#123; val = <span class="number">0</span>; &#125;</span><br><span class="line">Foo::<span class="built_in">Foo</span>(<span class="keyword">int</span> a) &#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Foo::Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::hello</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;Hello Foo!&quot;</span> &lt;&lt; std::endl;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后我们需要为Class Foo编写一个C语言的调用接口，并将接口的实现导出为动态链接库，方便在Python中调用。</p>
-<p>接口interface.h实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __CD_INTERFACE_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CD_INTERFACE_H__</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DLLEXPORT __declspec(dllexport)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">	<span class="comment">// DLLEXPORT Foo* FooNew(); C Language doesn&#x27;t support overload</span></span><br><span class="line">	<span class="function">DLLEXPORT Foo* <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(Foo*, <span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(Foo*)</span></span>;</span><br><span class="line">	<span class="function">DLLEXPORT <span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(Foo*)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>extern “C”表示告诉编译器以C语言的方式编译下面的代码，C语言不支持class，而且重载也是无效的</p>
-<p>接口的实现implementation.cpp如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;interface.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Foo* FooNew() &#123;</span></span><br><span class="line"><span class="comment">	return new Foo();</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"></span><br><span class="line"><span class="function">Foo* <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Foo</span>(a);&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(Foo* foo, <span class="keyword">int</span> a)</span> </span>&#123; foo-&gt;<span class="built_in">Set</span>(a); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(Foo* foo)</span> </span>&#123; <span class="keyword">return</span> foo-&gt;<span class="built_in">Get</span>(); &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(Foo* foo)</span> </span>&#123; foo-&gt;<span class="built_in">hello</span>(); &#125;</span><br></pre></td></tr></table></figure>
-
-<p>将implementation.cpp导出为动态链接库，就可以在Python中使用了。为了方便使用，需要在Python中重新将Foo封装为一个类，而且需要定义C语言函的参数和返回值类型，否则可能会报错，完整的Python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line">dll = ctypes.cdll.LoadLibrary(<span class="string">&quot;D:/PythonUseC/foo_inter.dll&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, val</span>):</span></span><br><span class="line">        dll.FooNew.argtypes = [ctypes.c_int]</span><br><span class="line">        dll.FooNew.restype = ctypes.c_void_p</span><br><span class="line"></span><br><span class="line">        dll.FooGet.argtypes = [ctypes.c_void_p]</span><br><span class="line">        dll.FooGet.restype = ctypes.c_int</span><br><span class="line"></span><br><span class="line">        dll.FooSet.argtypes = [ctypes.c_void_p, ctypes.c_int]</span><br><span class="line"></span><br><span class="line">        dll.FooHello.argtypes = [ctypes.c_void_p]</span><br><span class="line"></span><br><span class="line">        self.obj = dll.FooNew(val)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> dll.FooGet(self.obj)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span>(<span class="params">self, val</span>):</span></span><br><span class="line">        dll.FooSet(self.obj, val)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hello</span>(<span class="params">self</span>):</span></span><br><span class="line">        dll.FooHello(self.obj)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">foo = Foo(<span class="number">1</span>)</span><br><span class="line">foo.hello()</span><br><span class="line"><span class="built_in">print</span>(foo.get())</span><br><span class="line">foo.<span class="built_in">set</span>(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(foo.get())</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/29/python-cpp-class/" data-id="ckwkutag0000dhcvm2q7b4nfp" data-title="使用ctypes在Python中调用C++ class" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-java-cpp-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/29/java-cpp-class/" class="article-date">
-  <time class="dt-published" datetime="2021-11-29T15:53:17.000Z" itemprop="datePublished">2021-11-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Java中调用C-class"><a href="#Java中调用C-class" class="headerlink" title="Java中调用C++ class"></a>Java中调用C++ class</h3><p>一般使用Java自带的jni调用C++的函数，而无法直接调用C++的类，在javac -h中自动生成的头文件中，可以看到extern “C”关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。</p>
-<p>如果使用jni调用C++类，需要间接调用。C++的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来操作这个C++类。</p>
-<p>假设需要在Java中调用我们编写的Foo类</p>
-<p>声明Foo.h:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H__</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Foo</span>();</span><br><span class="line">	<span class="built_in">Foo</span>(<span class="keyword">int</span>);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>实现Foo.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Foo::<span class="built_in">Foo</span>() &#123; val = <span class="number">0</span>; &#125;</span><br><span class="line">Foo::<span class="built_in">Foo</span>(<span class="keyword">int</span> a) &#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Foo::Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::hello</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;Hello Foo!&quot;</span> &lt;&lt; std::endl;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>需要在Java中重新封装这个类，封装类的代码如UseCppClass.java所示</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> nativeObjAddr; <span class="comment">//用于保存C++对象的地址，通过它找到C++的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(<span class="keyword">long</span> addr, <span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> String <span class="title">FooNoUse</span><span class="params">(<span class="keyword">long</span> addr, String s)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        FooSet(nativeObjAddr, a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooGet(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FooHello(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">NoUse</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooNoUse(nativeObjAddr, s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>使用指令javac -h . UseCppClass.java生成对应的头文件UseCppClass.h，将.h文件中的#include &lt;jni.h&gt;更改为#include “jni.h”后一并与jni.h和jni_md.h放入C++的项目文件中</p>
-<p>假设我们把Foo类的实现编译为了静态库.lib，使用implementation.cpp来实现UseCppClass.h中的所有函数并编译成动态库.dll，在实现中需要调用Foo类的实现。</p>
-<p>implementation.cpp的具体实现如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UseCppClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: ()J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>();</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: (I)J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__I</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jint a)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>((<span class="keyword">int</span>)a);</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooSet</span></span><br><span class="line"><span class="comment"> * Signature: (JI)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooSet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr, jint a)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">Set</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooGet</span></span><br><span class="line"><span class="comment"> * Signature: (J)I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jint JNICALL <span class="title">Java_UseCppClass_FooGet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((Foo*)addr)-&gt;<span class="built_in">Get</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooHello</span></span><br><span class="line"><span class="comment"> * Signature: (J)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooHello</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">hello</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNoUse</span></span><br><span class="line"><span class="comment"> * Signature: (JLjava/lang/String;)Ljava/lang/String;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_UseCppClass_FooNoUse</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject, jlong addr, jstring s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>完整的CMakeLists.txt如下</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.20</span>)</span><br><span class="line"><span class="keyword">project</span>(exportCppClass)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(WIN32)</span><br><span class="line">	<span class="keyword">add_definitions</span>(-DPLANTFORM_WINDOWS)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo STATIC <span class="string">&quot;include/foo.h&quot;</span> <span class="string">&quot;foo.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo_inter SHARED </span><br><span class="line">	<span class="string">&quot;include/foo.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/UseCppClass.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni_md.h&quot;</span></span><br><span class="line">	<span class="string">&quot;implementation.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo_inter PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(foo_inter foo)</span><br></pre></td></tr></table></figure>
-
-<p>把编译好的foo_inter.dll导入Java项目中，即可使用。</p>
-<p>用于测试的UseCppClassMain.java的代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClassMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;foo_inter&quot;</span>);</span><br><span class="line">        UseCppClass useCppClass = <span class="keyword">new</span> UseCppClass();</span><br><span class="line">        useCppClass.Hello();</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">        useCppClass.Set(<span class="number">2</span>);</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/29/java-cpp-class/" data-id="ckwkutafv0005hcvmeds17ntq" data-title="Java中使用JNI调用C++ class" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-java-cpp-parameters" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/26/java-cpp-parameters/" class="article-date">
-  <time class="dt-published" datetime="2021-11-26T12:58:17.000Z" itemprop="datePublished">2021-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Java中调用C-之参数传递和函数返回"><a href="#Java中调用C-之参数传递和函数返回" class="headerlink" title="Java中调用C++之参数传递和函数返回"></a>Java中调用C++之参数传递和函数返回</h3><p>原始的Java文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCDLL</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">testHello</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">float</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">append</span><span class="params">(String s, <span class="keyword">char</span> c)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;cshared&quot;</span>);</span><br><span class="line">        String s = <span class="string">&quot;abcd&quot;</span>;</span><br><span class="line">        UseCDLL useCDLL = <span class="keyword">new</span> UseCDLL();</span><br><span class="line">        useCDLL.testHello();</span><br><span class="line">        System.out.println(useCDLL.add(<span class="number">1</span>, <span class="number">2</span>));</span><br><span class="line">        System.out.println(useCDLL.append(s, <span class="string">&#x27;e&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应实现的C++文件</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UseCDLL.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCDLL_testHello</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Hello world from cshared.dll&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JNIEXPORT jfloat JNICALL Java_UseCDLL_add <span class="comment">// typedef float jfloat</span></span><br><span class="line">(JNIEnv *, jobject, jint a, jint b) &#123; <span class="comment">// typedef long jint</span></span><br><span class="line">	<span class="keyword">return</span> (jfloat)a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_UseCDLL_append</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject, jstring s, jchar c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span>* cstr = env-&gt;<span class="built_in">GetStringUTFChars</span>(s, <span class="literal">NULL</span>); <span class="comment">// 从jstring构造const char *</span></span><br><span class="line">	std::string tstr = cstr;</span><br><span class="line">	env-&gt;<span class="built_in">ReleaseStringUTFChars</span>(s, cstr); <span class="comment">// 释放原来的s</span></span><br><span class="line">	tstr += (<span class="keyword">char</span>)c;</span><br><span class="line">	<span class="keyword">return</span> env-&gt;<span class="built_in">NewStringUTF</span>(tstr.<span class="built_in">c_str</span>()); <span class="comment">// 构建新的Java String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在”jni.h”中可以看到数据的定义和函数接口，例如</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>   jboolean;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span>  jchar;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">short</span>           jshort;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">float</span>           jfloat;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span>          jdouble;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> jint            jsize;</span><br></pre></td></tr></table></figure>
-
-<p>具体需要参考官方文档<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/jniTOC.html">Java Native Interface Specification Contents (oracle.com)</a></p>
-<p>比如，和字符串相关的操作<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/functions.html#string_operations">JNI Functions (oracle.com)</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/java-cpp-parameters/" data-id="ckwkutafz000ahcvm19yzeihu" data-title="在Windows上使用Java调用C++函数之参数传递和返回" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-java-cpp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/26/java-cpp/" class="article-date">
-  <time class="dt-published" datetime="2021-11-26T12:56:51.000Z" itemprop="datePublished">2021-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/26/java-cpp/">在Windows上使用Java调用C++代码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="在Java中调用C-动态链接库的方法"><a href="#在Java中调用C-动态链接库的方法" class="headerlink" title="在Java中调用C++动态链接库的方法"></a>在Java中调用C++动态链接库的方法</h3><p>在Java中调用C++代码时，需要将C++编译成动态链接库。本方法适用于jdk 1.10以上的版本。</p>
-<p>首先在Java中声明使用C++编写的函数名，并使用native关键字修饰，完整的Java代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCDLL</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">testHello</span><span class="params">()</span></span>; <span class="comment">//使用C++实现的函数</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;cshared&quot;</span>);</span><br><span class="line">        UseCDLL useCDLL = <span class="keyword">new</span> UseCDLL();</span><br><span class="line">        useCDLL.testHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后打开cmd，进入到该程序所在的目录，执行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac -h . UseCDLL.java</span><br></pre></td></tr></table></figure>
-
-<p>生成对应的.h头文件UseCDLL.h</p>
-<p>拷贝UseCDLL.h、以及Java安装目录中include/jni.h和include/win32/jni_md.h文件，与函数实现的文件cshared.cpp构成一个项目，并编译成.dll，构建的CMake代码如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.20</span>)</span><br><span class="line"><span class="keyword">project</span>(CppLibTest)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="keyword">file</span>(GLOB INCLUDE_DIR <span class="string">&quot;include&quot;</span>)</span><br><span class="line"><span class="keyword">install_files</span>(GLOB <span class="variable">$&#123;INCLUDE_DIR&#125;</span>/*.h)</span><br><span class="line"><span class="keyword">add_library</span>(cshared SHARED src/cshared.cpp)</span><br><span class="line"><span class="keyword">target_include_directories</span>(cshared PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>需要将UseCDLL.h中头文件引用从#include &lt;jni.h&gt;修改为#include “jni.h”。cshared.cpp代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UseCDLL.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCDLL_testHello</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;Hello world from cshared.dll&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>将编译好的.dll文件作为外部的包添加到Java项目中即可使用。在IDEA中可以使用<strong>File -&gt; Project Structure… -&gt; Libraries -&gt; New Project Libraries(+号) -&gt; 选择Java并指定目录</strong>来添加.dll文件。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/java-cpp/" data-id="ckwkutafz000bhcvm27q64i2g" data-title="在Windows上使用Java调用C++代码" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-cmake-cpp-lib-windows" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/26/cmake-cpp-lib-windows/" class="article-date">
-  <time class="dt-published" datetime="2021-11-26T12:54:22.000Z" itemprop="datePublished">2021-11-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/26/cmake-cpp-lib-windows/">利用CMake在Windows上编译并使用静态库和动态库</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="利用CMake在Windows上编译并使用静态库和动态库"><a href="#利用CMake在Windows上编译并使用静态库和动态库" class="headerlink" title="利用CMake在Windows上编译并使用静态库和动态库"></a>利用CMake在Windows上编译并使用静态库和动态库</h3><p>CMake编译静态库和动态库的方法，变量$${STATIC_SRC}$和$${SHARED_SRC}$分别表示编译两个库需要的源文件：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(static STATIC <span class="variable">$&#123;STATIC_SRC&#125;</span>)  <span class="comment"># 生成静态库</span></span><br><span class="line"><span class="keyword">add_library</span>(dynamic SHARED <span class="variable">$&#123;SHARED_SRC&#125;</span>) <span class="comment"># 生成动态库</span></span><br></pre></td></tr></table></figure>
-
-<p>编译完需要添加相应的头文件目录：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target_include_directorys(static PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br><span class="line">target_include_directorys(dynamic PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>编译可执行文件以及链接静态库：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(myexe main.cpp)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(myexe static dynamic)</span><br></pre></td></tr></table></figure>
-
-<p>在windows中，链接动态库在执行的时候，链接器才会去寻找与.h同名的动态库并链接进相应的代码。寻找动态库的目录包括PATH指定的所有目录以及与exe文件同级的目录。此处我也没弄明白为什么需要在target_link_libraries中添加dynamic</p>
-<p>个人认为，在CMake中不适用install指令的情况下，将.lib、.dll和.exe导出到同一个目录是一个比较好的方法。</p>
-<p>现在来看一个简单的例子，文件结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── include</span><br><span class="line">|   ├── dependence.h</span><br><span class="line">|   ├── shared.h</span><br><span class="line">|   └── library.h</span><br><span class="line">├── src</span><br><span class="line">|   ├── dependence.cpp</span><br><span class="line">|   ├── shared.cpp</span><br><span class="line">|   └── library.cpp</span><br><span class="line">├── main.cpp</span><br><span class="line">└── CMakeLists.txt</span><br></pre></td></tr></table></figure>
-
-<p>我们希望使用dependence.cpp生成dependence.lib，shared.cpp生成mydll.dll，library.cpp生成library.lib，main.cpp生成myexe.exe。其中shared.cpp依赖于dependence.cpp，myexe.cpp依赖于shared.cpp和library.cpp。</p>
-<p>编写CMakeLists.txt如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.20</span>)</span><br><span class="line"><span class="keyword">project</span>(CppLibTest)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">file</span>(GLOB INCLUDE_DIR <span class="string">&quot;include&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(dependence STATIC src/dependence.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(mylib STATIC src/library.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(mydll SHARED src/shared.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(dependence PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(mylib PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(mydll PUBLIC <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(mydll dependence)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(myexe main.cpp <span class="variable">$&#123;INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(myexe mylib mydll) <span class="comment"># 没懂为什么需要添加mydll</span></span><br></pre></td></tr></table></figure>
-
-<p>library.h:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> CPPLIBTEST_LIBRARY_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CPPLIBTEST_LIBRARY_H</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">//CPPLIBTEST_LIBRARY_H</span></span></span><br></pre></td></tr></table></figure>
-
-<p>library.cpp：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;library.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello, World!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>dependence.h:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __DEPENDENCE_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __DEPENDENCE_H__</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dependence_hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>dependence.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;dependence.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dependence_hello</span><span class="params">()</span> </span>&#123;	</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Dependence hello.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>shared.h，动态库中需要导出函数，注意加导出的宏:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __SHARED_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __SHARED_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXPORT_DLL __declspec(dllexport)</span></span><br><span class="line"><span class="function">EXPORT_DLL <span class="keyword">void</span> <span class="title">hello_shared</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>shared.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;shared.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;dependence.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello_shared</span><span class="params">()</span> </span>&#123;	</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello from shared.&quot;</span> &lt;&lt; std::endl;	</span><br><span class="line">    <span class="built_in">dependence_hello</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>main.cpp:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;library.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;shared.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;	</span><br><span class="line">    <span class="built_in">hello</span>();	</span><br><span class="line">    <span class="built_in">hello_shared</span>();	</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用CMake生成项目，可以发现可执行文件以及静态库、动态库都生成在了同一目录下。实际运行的时候，可以删除所有的静态库，即便是和mydll.dll同名的mydll.lib。而删除my.dll后无法正常运行。</p>
-<p>运行结果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hello, World!</span><br><span class="line">Hello from shared.</span><br><span class="line">Dependence hello.</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/26/cmake-cpp-lib-windows/" data-id="ckwkutafo0001hcvm0d2w6ujv" data-title="利用CMake在Windows上编译并使用静态库和动态库" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-blogimg" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/23/blogimg/" class="article-date">
-  <time class="dt-published" datetime="2021-11-23T04:27:55.000Z" itemprop="datePublished">2021-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/23/blogimg/">Hexo无法显示图片的问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>安装插件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-
-<p>此时在hexo n “new_blog”生成new_blog.md文件的同时会在同级目录下生成new_blog文件夹，将图片放入该文件夹中。hexo g会将new_blog.md和new_blog文件夹里面的图片一并复制到public/year/month/day/new_blog中</p>
-<p>因此在markdown编辑器中使用![](picture_name.jpg)或”&lt;img src=”picture_name.jpg”&gt;插入图片</p>
-<p>未解决的问题：</p>
-<p>1.网站首页的图片仍然未能够显示：</p>
-<img src="blog.png" width=60%>
-
-<p>2.本地编辑的时候，由于使用相对路径，也无法显示图片：</p>
-<img src="local.png" width=60%>
-
-<p>其原因是生成的index.html使用相对路径插入图片，如图所示，hexo g后网页文件和它使用的图片均在同一目录下：</p>
-<img src="public.png" width=80%>
-
-<p>网页中插入图片插入处示例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>若安装成功，在cmd下应当可以使用nodejs的相关指令<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;node.png&quot;</span> <span class="attr">width</span>=<span class="string">60%</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>因此，若想在博客中显示图片，本地markdown编辑时是无法显示图片的</p>
-<p>那么再回到网页的首页public/index.html，可以发现同样是这种方式插入图片的，所以是没法显示图片的：</p>
-<img src="mainpage.png" width=75%>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/23/blogimg/" data-id="ckwkutafj0000hcvmdftq61ch" data-title="Hexo无法显示图片的问题" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hexo-github-blog" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/22/hexo-github-blog/" class="article-date">
-  <time class="dt-published" datetime="2021-11-21T16:17:12.000Z" itemprop="datePublished">2021-11-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/22/hexo-github-blog/">使用hexo和github搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="在Github上创建博客的仓库"><a href="#在Github上创建博客的仓库" class="headerlink" title="在Github上创建博客的仓库"></a>在Github上创建博客的仓库</h3><p>仓库的名称<strong>必须</strong>是Github的用户名（因为我已经创建过仓库了，所以显示已经存在）</p>
-<p><img src="repository.png"></p>
-<h3 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h3><p>在官网<a target="_blank" rel="noopener" href="https://nodejs.org/">https://nodejs.org</a>  下载LTS版本即可</p>
-<p>若安装成功，在cmd下应当可以使用nodejs的相关指令</p>
-<img src="node.png" width=60%>
-
-<p>此处建议重新设置npm在安装模块的时的路径，首先在nodejs安装目录下新建node_cache和node_global两个文件夹，然后在cmd下执行如下指令：</p>
-<img src="npmconfig.png" width=60%>
-
-<p>把nodejs/node_global和nodejs/node_global/node_modules都添加到环境变量中，具体方式为<strong>此电脑 &gt; 右键 &gt; 属性 &gt; 在关于的相关设置里找到高级系统设置 &gt; 高级 &gt; 环境变量 &gt; 修改用户的Path变量</strong>，变量修改方式如下：</p>
-<img src="path.png" width=80%>
-
-<p>设置完环境变量之后可能需要重启才能使用</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p><strong>以管理员身份</strong>启动cmd，执行命令npm install -g hexo-cli</p>
-<img src="hexocli.png" width=70%>
-
-<h3 id="创建本地的Blog文件夹"><a href="#创建本地的Blog文件夹" class="headerlink" title="创建本地的Blog文件夹"></a>创建本地的Blog文件夹</h3><p>在本地创建存储博客的文件夹，启动git bash并进入</p>
-<p>在该空文件夹下执行hexo init，若找不到hexo指令，将其bin文件夹的路径即“E:\nodejs\node_global\node_modules\hexo-cli\bin”添加到环境变量</p>
-<img src="hexoinit.png">
-
-<p>hexo init必须在空文件夹下执行，该指令会clone hexo的git仓库，所以可能需要挂梯子</p>
-<p>若此过程顺利，再执行hexo s，是可以在本地看到博客网站的，用浏览器访问<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
-<img src="hexos.png">
-
-<img src="localhost.png" width=80%>
-
-<h3 id="本地Blog和Github关联"><a href="#本地Blog和Github关联" class="headerlink" title="本地Blog和Github关联"></a>本地Blog和Github关联</h3><p>修改博客文件夹下的_config.yml文件，找到末尾的deploy项，依次填写type、repository、branch三个项，注意中间的空格。reposiory是github的仓库地址，可以使用https方式或者ssh方式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/vigorweijia/vigorweijia.github.io.git</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
-
-<img src="yml.png" width=80%>
-
-<p>个人仓库中可以看到repository的地址：</p>
-<img src="repository-ssh.png">
-
-<h3 id="上传本地博客"><a href="#上传本地博客" class="headerlink" title="上传本地博客"></a>上传本地博客</h3><p>在博客文件夹依次执行如下指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<p>即可上传博客。hexo clean表示清理缓存，hexo g表示把source文件夹里面的markdown文件编译成html文件，并放入public文件夹。hexo d表示将public文件夹部署到_config.yml文件deploy属性指定的位置。</p>
-<p><img src="hexoop.png" width=60%>)</p>
-<p>然后就可以通过 username.github.io访问自己的博客了：</p>
-<img src="blog.png">
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/22/hexo-github-blog/" data-id="ckwkutafr0002hcvmb94qfxvj" data-title="使用hexo和github搭建博客" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/21/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2021-11-21T15:29:42.591Z" itemprop="datePublished">2021-11-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/21/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/21/hello-world/" data-id="ckwkutaft0004hcvmg94s7zbi" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">基础</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2021/12/11/bp/">从0到1手动实现多层感知机（MLP）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/26/java-cpp/">在Windows上使用Java调用C++代码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
 </nav>
+  <main id="main">
+  
+    <div class="preview">
+  <!-- <nav class="navbar j-navbar-menu">
+    <i class="iconfont iconmenu"></i>
+  </nav> -->
+  <div class="preview-image">
+    
+        
+              <div class="preview-overlay">
+                <svg class="preview-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                  <defs>
+                    <path id="gentle-wave"
+                      d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                  </defs>
+                  <g class="preview-parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(var(--color-background-rgb),0.7"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(var(--color-background-rgb),0.5)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(var(--color-background-rgb),0.3)"></use>
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--color-background)"></use>
+                  </g>
+                </svg>
+              </div>
+              
+  </div>
+  <div class="preview-motto-wrapper">
+    <h2 class="preview-motto" id="motto">
+      
+    </h2>
+    
+      <span class="preview-cursor">_</span>
+      
+  </div>
+  <div class="preview-scroll">
+    <a href="#container" class="smooth-scroll"><i class="iconfont iconMouse"></i></a>
+  </div>
+</div>
+  
+  <div class="container" id="container">
+    <section class="row post">
+  
     
 
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/12/11/bp/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/12/11/bp/" title="从0到1手动实现多层感知机（MLP）" >从0到1手动实现多层感知机（MLP）</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> 多层感知机
+ 梯度下降法
+多元函数中，梯度是一个向量，表示多元函数在给定点上升的最快方向，实际上就是分别对每个自变量求偏导
+假设J(\boldsymbol{\theta})是一个有三个自变量的...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 11, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<script src="/js/jquery-3.4.1.min.js"></script>
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/29/python-cpp-class/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/29/python-cpp-class/" title="使用ctypes在Python中调用C++ class" >使用ctypes在Python中调用C++ class</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> 使用ctypes在Python中调用C++ class
+ctypes是python中自带的包，可以方便的调用C语言代码，但是无法直接调用C++代码
+首先定义希望被使用的C++类Foo，声明和实...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 29, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/29/java-cpp-class/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/29/java-cpp-class/" title="Java中使用JNI调用C++ class" >Java中使用JNI调用C++ class</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> Java中调用C++ class
+一般使用Java自带的jni调用C的函数，而无法直接调用C的类，在javac -h中自动生成的头文件中，可以看到extern &quot;C&quot;关键字...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 29, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/26/java-cpp-parameters/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/26/java-cpp-parameters/" title="在Windows上使用Java调用C++函数之参数传递和返回" >在Windows上使用Java调用C++函数之参数传递和返回</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> Java中调用C++之参数传递和函数返回
+原始的Java文件
+1234567891011121314public class UseCDLL &#123;    public native v...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 26, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/26/java-cpp/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/26/java-cpp/" title="在Windows上使用Java调用C++代码" >在Windows上使用Java调用C++代码</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> 在Java中调用C++动态链接库的方法
+在Java中调用C代码时，需要将C编译成动态链接库。本方法适用于jdk 1.10以上的版本。
+首先在Java中声明使用C++编写的函数名，并使用nati...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 26, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/26/cmake-cpp-lib-windows/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/26/cmake-cpp-lib-windows/" title="利用CMake在Windows上编译并使用静态库和动态库" >利用CMake在Windows上编译并使用静态库和动态库</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> 利用CMake在Windows上编译并使用静态库和动态库
+CMake编译静态库和动态库的方法，变量${STATIC_SRC}\$\{STATIC\_SRC\}${STATIC_SRC}和${S...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 26, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/23/blogimg/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/23/blogimg/" title="Hexo无法显示图片的问题" >Hexo无法显示图片的问题</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">安装插件
+1npm install -g hexo-asset-image --save
+此时在hexo n &quot;new_blog&quot;生成new_blog.md文件的同时会在同级...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 23, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/22/hexo-github-blog/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/22/hexo-github-blog/" title="使用hexo和github搭建博客" >使用hexo和github搭建博客</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3"> 在Github上创建博客的仓库
+仓库的名称必须是Github的用户名（因为我已经创建过仓库了，所以显示已经存在）
+
+ 安装NodeJS
+在官网https://nodejs.org  下载LTS...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 22, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+    
+
+<div class="col-lg-4 col-md-6 col-sm-12 post-item">
+  <div class="post-wrap">
+    
+    <a href="/2021/11/21/hello-world/" class="post-image">
+      <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+    </a>
+    <div class="post-content">
+      <div class="post-content-wrap">
+        <h3 class="post-title"><a href="/2021/11/21/hello-world/" title="Hello World" >Hello World</a></h3>
+        <div class="post-excerpt">
+          <p class="substr-3">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...</p>
+        </div>
+      </div>
+      <div class="post-info">
+        <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 21, 2021</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+</section>
+    <section class="paginator">
+  
+</section>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
 <script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
-</body>
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

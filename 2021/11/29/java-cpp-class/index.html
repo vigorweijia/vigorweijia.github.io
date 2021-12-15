@@ -1,270 +1,408 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Java中使用JNI调用C++ class | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Java中调用C++ class一般使用Java自带的jni调用C++的函数，而无法直接调用C++的类，在javac -h中自动生成的头文件中，可以看到extern “C”关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。 如果使用jni调用C++类，需要间接调用。C++的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java中使用JNI调用C++ class">
-<meta property="og:url" content="http://example.com/2021/11/29/java-cpp-class/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Java中调用C++ class一般使用Java自带的jni调用C++的函数，而无法直接调用C++的类，在javac -h中自动生成的头文件中，可以看到extern “C”关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。 如果使用jni调用C++类，需要间接调用。C++的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-11-29T15:53:17.000Z">
-<meta property="article:modified_time" content="2021-11-29T15:56:16.309Z">
-<meta property="article:author" content="John Doe">
-<meta property="article:tag" content="基础">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Java中使用JNI调用C++ class - Hexo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
   
+  <meta name="description" content=" Java中调用C++ class
+一般使用Java自...">
+  <meta name="author" content="John Doe">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
   
 <link rel="stylesheet" href="/css/style.css">
 
+
   
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
 
   
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+  
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+    <div class="center">Java中使用JNI调用C++ class</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Java中使用JNI调用C++ class</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>November 29, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4390</span>
     </div>
   </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-java-cpp-class" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/11/29/java-cpp-class/" class="article-date">
-  <time class="dt-published" datetime="2021-11-29T15:53:17.000Z" itemprop="datePublished">2021-11-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+</section>
+    <section class="main">
+      <section class="content">
         
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Java中使用JNI调用C++ class
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Java中调用C-class"><a href="#Java中调用C-class" class="headerlink" title="Java中调用C++ class"></a>Java中调用C++ class</h3><p>一般使用Java自带的jni调用C++的函数，而无法直接调用C++的类，在javac -h中自动生成的头文件中，可以看到extern “C”关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。</p>
-<p>如果使用jni调用C++类，需要间接调用。C++的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来操作这个C++类。</p>
+        <h3 id="java中调用c-class"><a class="markdownIt-Anchor" href="#java中调用c-class"></a> Java中调用C++ class</h3>
+<p>一般使用Java自带的jni调用C<ins>的函数，而无法直接调用C</ins>的类，在javac -h中自动生成的头文件中，可以看到extern &quot;C&quot;关键字，表示告诉编译器以C语言的方式编译以下代码，也就是说并不支持C++类的操作。</p>
+<p>如果使用jni调用C<ins>类，需要间接调用。C</ins>的对象有一个固定的地址，这个地址相当于指向这个类的指针，那么可以在Java中封装一层，使用指针来操作这个C++类。</p>
 <p>假设需要在Java中调用我们编写的Foo类</p>
 <p>声明Foo.h:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H__</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Foo</span>();</span><br><span class="line">	<span class="built_in">Foo</span>(<span class="keyword">int</span>);</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
 <p>实现Foo.cpp:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">Foo::<span class="built_in">Foo</span>() &#123; val = <span class="number">0</span>; &#125;</span><br><span class="line">Foo::<span class="built_in">Foo</span>(<span class="keyword">int</span> a) &#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123; val = a; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Foo::Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> val; &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Foo::hello</span><span class="params">()</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;Hello Foo!&quot;</span> &lt;&lt; std::endl;&#125;</span><br></pre></td></tr></table></figure>
-
 <p>需要在Java中重新封装这个类，封装类的代码如UseCppClass.java所示</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> nativeObjAddr; <span class="comment">//用于保存C++对象的地址，通过它找到C++的对象</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">long</span> <span class="title">FooNew</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooSet</span><span class="params">(<span class="keyword">long</span> addr, <span class="keyword">int</span> a)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">FooGet</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">FooHello</span><span class="params">(<span class="keyword">long</span> addr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> String <span class="title">FooNoUse</span><span class="params">(<span class="keyword">long</span> addr, String s)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UseCppClass</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        nativeObjAddr = FooNew(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        FooSet(nativeObjAddr, a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooGet(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FooHello(nativeObjAddr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">NoUse</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> FooNoUse(nativeObjAddr, s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>使用指令javac -h . UseCppClass.java生成对应的头文件UseCppClass.h，将.h文件中的#include &lt;jni.h&gt;更改为#include “jni.h”后一并与jni.h和jni_md.h放入C++的项目文件中</p>
+<p>使用指令javac -h . UseCppClass.java生成对应的头文件UseCppClass.h，将.h文件中的#include &lt;jni.h&gt;更改为#include &quot;jni.h&quot;后一并与jni.h和jni_md.h放入C++的项目文件中</p>
 <p>假设我们把Foo类的实现编译为了静态库.lib，使用implementation.cpp来实现UseCppClass.h中的所有函数并编译成动态库.dll，在实现中需要调用Foo类的实现。</p>
 <p>implementation.cpp的具体实现如下：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;UseCppClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: ()J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>();</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNew</span></span><br><span class="line"><span class="comment"> * Signature: (I)J</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jlong JNICALL <span class="title">Java_UseCppClass_FooNew__I</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jint a)</span> </span>&#123;</span><br><span class="line">	jlong nativeObjAddr;</span><br><span class="line">	nativeObjAddr = (jlong) <span class="keyword">new</span> <span class="built_in">Foo</span>((<span class="keyword">int</span>)a);</span><br><span class="line">	<span class="keyword">return</span> nativeObjAddr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooSet</span></span><br><span class="line"><span class="comment"> * Signature: (JI)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooSet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr, jint a)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">Set</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooGet</span></span><br><span class="line"><span class="comment"> * Signature: (J)I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jint JNICALL <span class="title">Java_UseCppClass_FooGet</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((Foo*)addr)-&gt;<span class="built_in">Get</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooHello</span></span><br><span class="line"><span class="comment"> * Signature: (J)V</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT <span class="keyword">void</span> JNICALL <span class="title">Java_UseCppClass_FooHello</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *, jobject, jlong addr)</span> </span>&#123;</span><br><span class="line">	((Foo*)addr)-&gt;<span class="built_in">hello</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     UseCppClass</span></span><br><span class="line"><span class="comment"> * Method:    FooNoUse</span></span><br><span class="line"><span class="comment"> * Signature: (JLjava/lang/String;)Ljava/lang/String;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">JNIEXPORT jstring JNICALL <span class="title">Java_UseCppClass_FooNoUse</span></span></span><br><span class="line"><span class="function"><span class="params">(JNIEnv *env, jobject, jlong addr, jstring s)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>完整的CMakeLists.txt如下</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.20</span>)</span><br><span class="line"><span class="keyword">project</span>(exportCppClass)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(WIN32)</span><br><span class="line">	<span class="keyword">add_definitions</span>(-DPLANTFORM_WINDOWS)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo STATIC <span class="string">&quot;include/foo.h&quot;</span> <span class="string">&quot;foo.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_library</span>(foo_inter SHARED </span><br><span class="line">	<span class="string">&quot;include/foo.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/UseCppClass.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni.h&quot;</span></span><br><span class="line">	<span class="string">&quot;include/jni_md.h&quot;</span></span><br><span class="line">	<span class="string">&quot;implementation.cpp&quot;</span>)</span><br><span class="line"><span class="keyword">target_include_directories</span>(foo_inter PUBLIC <span class="string">&quot;include&quot;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(foo_inter foo)</span><br></pre></td></tr></table></figure>
-
 <p>把编译好的foo_inter.dll导入Java项目中，即可使用。</p>
 <p>用于测试的UseCppClassMain.java的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UseCppClassMain</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.loadLibrary(<span class="string">&quot;foo_inter&quot;</span>);</span><br><span class="line">        UseCppClass useCppClass = <span class="keyword">new</span> UseCppClass();</span><br><span class="line">        useCppClass.Hello();</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">        useCppClass.Set(<span class="number">2</span>);</span><br><span class="line">        System.out.println(useCppClass.Get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/29/java-cpp-class/" data-id="ckwkutafv0005hcvmeds17ntq" data-title="Java中使用JNI调用C++ class" class="article-share-link">Share</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul>
-
-    </footer>
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>John Doe</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2021/11/29/java-cpp-class/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;29&#x2F;java-cpp-class&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;11&#x2F;29&#x2F;java-cpp-class&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2021/11/29/python-cpp-class/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用ctypes在Python中调用C++ class
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2021/11/26/java-cpp-parameters/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">在Windows上使用Java调用C++函数之参数传递和返回</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
 </section>
         
-          <aside id="sidebar">
-  
-    
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li></ul> 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li></ul>
-    </div>
+        
+  <nav class="nav">
+    <a href="/2021/11/29/python-cpp-class/"><i class="iconfont iconleft"></i>使用ctypes在Python中调用C++ class</a>
+    <a href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
   </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 20px;">基础</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 10px;">教程</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">神经网络</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+</article></div>
+      <div class="col-xl-3">
         
-          <li>
-            <a href="/2021/12/11/bp/">从0到1手动实现多层感知机（MLP）</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/29/python-cpp-class/">使用ctypes在Python中调用C++ class</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/29/java-cpp-class/">Java中使用JNI调用C++ class</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/26/java-cpp-parameters/">在Windows上使用Java调用C++函数之参数传递和返回</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/26/java-cpp/">在Windows上使用Java调用C++代码</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E4%B8%AD%E8%B0%83%E7%94%A8c-class"><span class="toc-text"> Java中调用C++ class</span></a></li></ol>
+  </aside>
 
-  
-</aside>
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
 </footer>
-
-    </div>
-    <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
   
-</nav>
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
     
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 
 
-<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 
 
 
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
 <script src="/js/script.js"></script>
 
 
 
 
 
-  </div>
-</body>
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
