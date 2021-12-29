@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NJU分布式系统复习笔记 - Hexo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content=" 分布式系统
+ 简介
+ 分布式系统的定义
+分布式系统是...">
+  <meta name="author" content="John Doe">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+  
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">NJU分布式系统复习笔记</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">NJU分布式系统复习笔记</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>December 30, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8762</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="分布式系统"><a class="markdownIt-Anchor" href="#分布式系统"></a> 分布式系统</h1>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<h3 id="分布式系统的定义"><a class="markdownIt-Anchor" href="#分布式系统的定义"></a> 分布式系统的定义</h3>
+<p>分布式系统是一组独立的计算机的集合，它能够使得在用户看来，像一个计算机系统一样</p>
+<h3 id="为什么要分布式"><a class="markdownIt-Anchor" href="#为什么要分布式"></a> 为什么要分布式</h3>
+<p>经济性 economics：微处理器提供比大型机器更好的性价比</p>
+<p>速度 speed：分布式系统提供比大型机器更强的计算能力</p>
+<p>固有的分布式 inherent distribution：有一些应用包含物理上分布的机器</p>
+<p>可靠性 reliability：某台机器崩溃时，整个系统仍然能正常工作</p>
+<p>可扩展性 incremental growth：计算能力逐步增加</p>
+<h3 id="分布式系统的目标"><a class="markdownIt-Anchor" href="#分布式系统的目标"></a> 分布式系统的目标</h3>
+<h4 id="资源可访问"><a class="markdownIt-Anchor" href="#资源可访问"></a> 资源可访问</h4>
+<h4 id="透明性"><a class="markdownIt-Anchor" href="#透明性"></a> 透明性</h4>
+<p>访问透明性（隐藏数据表示形式以及访问的方式不同），位置透明性（隐藏数据所在位置），迁移透明性（隐藏资源是否已移动到另一个位置），重定位透明性，复制透明性，并发透明性，故障透明性（隐藏资源的故障和恢复），持久性透明性</p>
+<h4 id="开放性"><a class="markdownIt-Anchor" href="#开放性"></a> 开放性</h4>
+<p>与其他开放系统的服务进行交互，而不管底层环境如何</p>
+<p>符合明确定义的接口、支持应用的可一致性、易于互操作、屏蔽底层环境的区别</p>
+<h4 id="可扩展性"><a class="markdownIt-Anchor" href="#可扩展性"></a> 可扩展性</h4>
+<p>用户和/或进程的数量（规模可扩展性）<br />
+节点之间的最大距离（地理可扩展性）<br />
+管理域的数量（管理可扩展性）</p>
+<h3 id="策略与机制"><a class="markdownIt-Anchor" href="#策略与机制"></a> 策略与机制</h3>
+<p>需要支持不同的策略：<br />
+1.对于客户端缓存的数据，我们需要什么级别的一致性？<br />
+2.我们允许下载的代码执行哪些操作？<br />
+3.面对不断变化的带宽，我们应该调整哪些 QoS 要求？<br />
+4.沟通需要什么级别的保密？<br />
+理想情况下，分布式系统仅提供以下机制：<br />
+1.允许（动态）设置缓存策略<br />
+2.支持移动代码的不同信任级别<br />
+3.为每个数据流提供可调整的 QoS 参数<br />
+4.提供不同的加密算法</p>
+<p>对于xxx，要yyy，都是策略</p>
+<p>做yyy，都是机制</p>
+<h3 id="分布式系统的类型"><a class="markdownIt-Anchor" href="#分布式系统的类型"></a> 分布式系统的类型</h3>
+<p>分布式计算系统、分布式信息系统、分布式普适（pervasive）系统</p>
+<h4 id="分布式计算系统"><a class="markdownIt-Anchor" href="#分布式计算系统"></a> 分布式计算系统</h4>
+<p>eg.云服务</p>
+<h5 id="集群计算"><a class="markdownIt-Anchor" href="#集群计算"></a> 集群计算</h5>
+<p>通过局域网链接的高端系统：节点集中，节点系统相同，硬件几乎相同，有单个管理节点</p>
+<h5 id="网格计算"><a class="markdownIt-Anchor" href="#网格计算"></a> 网格计算</h5>
+<p>节点分散、节点异构</p>
+<h4 id="分布式信息系统"><a class="markdownIt-Anchor" href="#分布式信息系统"></a> 分布式信息系统</h4>
+<p>今天使用的大量分布式系统是传统信息系统的形式，现在集成了遗留系统。eg.事务处理系统</p>
+<p>事务是对满足以下属性 (ACID) 的对象（数据库、对象组合等）的状态进行的操作的集合</p>
+<p>ACID：原子性、一致性、独立性、耐久性</p>
+<h4 id="分布式普适系统"><a class="markdownIt-Anchor" href="#分布式普适系统"></a> 分布式普适系统</h4>
+<p>节点小，可移动，通常嵌入更大的系统中，系统自然混合到用户的环境中，例如移动计算系统、感知系统</p>
+<p>例子：Internet、intranet、mobile environment、web</p>
+<h2 id="分布式系统结构"><a class="markdownIt-Anchor" href="#分布式系统结构"></a> 分布式系统结构</h2>
+<h3 id="分布式系统的结构风格"><a class="markdownIt-Anchor" href="#分布式系统的结构风格"></a> 分布式系统的结构风格</h3>
+<h4 id="基于逻辑单元划分"><a class="markdownIt-Anchor" href="#基于逻辑单元划分"></a> 基于逻辑单元划分</h4>
+<img   class="lazyload" data-original="a1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<h4 id="基于解耦过程划分"><a class="markdownIt-Anchor" href="#基于解耦过程划分"></a> 基于解耦过程划分</h4>
+<p>(a)client-server系统的分层风格</p>
+<p>(b)distributed object系统的基于对象的风格</p>
+<img   class="lazyload" data-original="a2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>(a)订阅/发布式（空间解耦）</p>
+<p>(b)共享数据空间（空间和时间解耦）</p>
+<h3 id="分布式系统的组织形式"><a class="markdownIt-Anchor" href="#分布式系统的组织形式"></a> 分布式系统的组织形式</h3>
+<h4 id="中心化"><a class="markdownIt-Anchor" href="#中心化"></a> 中心化</h4>
+<p>基本的Client-Server模型，特点：有的节点提供服务；有的节点使用服务；client和server在不同机器上；client使用 请求/回应 模型使用服务</p>
+<img   class="lazyload" data-original="structured.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>使用逻辑环或超立方体组织节点，每个节点有自己的ID</p>
+<h4 id="去中心化"><a class="markdownIt-Anchor" href="#去中心化"></a> 去中心化</h4>
+<p>结构化P2P：节点按照特定的数据结构组织</p>
+<p>非结构化P2P：节点任意选择邻居</p>
+<p>混合P2P：一些节点以有序的方式被指定特殊功能</p>
+<img   class="lazyload" data-original="superpeers.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>让一些节点执行特殊功能（superpeer）：维护索引（用于搜索）、监视网络状态、建立连接</p>
+<h4 id="混合体系"><a class="markdownIt-Anchor" href="#混合体系"></a> 混合体系</h4>
+<img   class="lazyload" data-original="hybrid.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>client-server和p2p结合</p>
+<p>edge-server结构，通常用于CDN(Content Delivery Networks)</p>
+<p>bt种子</p>
+<h3 id="分布式系统组织为中间件"><a class="markdownIt-Anchor" href="#分布式系统组织为中间件"></a> 分布式系统组织为中间件</h3>
+<img   class="lazyload" data-original="Middleware.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>在本地OS上运行中间件服务，在这之上再运行分布式应用</p>
+<h2 id="进程和线程"><a class="markdownIt-Anchor" href="#进程和线程"></a> 进程和线程</h2>
+<h3 id="进程和程序"><a class="markdownIt-Anchor" href="#进程和程序"></a> 进程和程序</h3>
+<p>程序是静态的代码和数据，进程是程序的动态实例</p>
+<p>进程的三个状态：running（在CPU上运行）、ready（等待CPU）、blocked（sleep被挂起，等待IO，等待同步完成）</p>
+<h3 id="进程和线程-2"><a class="markdownIt-Anchor" href="#进程和线程-2"></a> 进程和线程</h3>
+<p>线程共享地址空间，线程上下文切换独立于操作系统，在用户进程的地址空间中被创建；进程上下文切换需要操作系统介入</p>
+<h3 id="线程的优缺点"><a class="markdownIt-Anchor" href="#线程的优缺点"></a> 线程的优缺点</h3>
+<p>优点：所有操作都可以由一个进程完成，实现高效性</p>
+<p>缺点：缺乏OS支持，如果OS内核需要阻塞一个线程，那么需要阻塞整个进程</p>
+<h3 id="线程和分布式系统"><a class="markdownIt-Anchor" href="#线程和分布式系统"></a> 线程和分布式系统</h3>
+<p>隐藏网络延迟：html需要多个文件，每个文件由一个单独的线程发送http请求，每读一个文件，浏览器就显示</p>
+<p>对其他机器的多个request-response调用：client对每个服务调用都使用一个线程</p>
+<p>提升性能：开启线程花费更小；对client，通过在响应前一个请求时对下一个请求做出反应来隐藏网络延迟</p>
+<p>更好的结构：由于简化的控制流程，多线程程序往往更小更容易理解</p>
+<h3 id="虚拟机"><a class="markdownIt-Anchor" href="#虚拟机"></a> 虚拟机</h3>
+<p>虚拟化越来越重要：硬件比软件更新得更快、易于移植和代码迁移、隔离故障或受攻击的组件</p>
+<p>虚拟机的结构：</p>
+<img   class="lazyload" data-original="vm.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>根据系统各组件提供的接口，虚拟机可以在不同层次实现</p>
+<h3 id="代码迁移"><a class="markdownIt-Anchor" href="#代码迁移"></a> 代码迁移</h3>
+<h4 id="代码迁移的方法"><a class="markdownIt-Anchor" href="#代码迁移的方法"></a> 代码迁移的方法</h4>
+<p>需要迁移的内容：代码片段、数据片段、执行状态（包含执行对象代码的线程上下文）</p>
+<p>强迁移：从机器中移动整个对象，在其他机器设置相同的执行状态</p>
+<p>弱迁移：只迁移代码和数据部分，然后重新执行</p>
+<h4 id="管理本地资源"><a class="markdownIt-Anchor" href="#管理本地资源"></a> 管理本地资源</h4>
+<p>对象在目标点可能无法使用本地资源</p>
+<h5 id="资源类型"><a class="markdownIt-Anchor" href="#资源类型"></a> 资源类型</h5>
+<p>固定资源 fixed：资源无法被迁移，例如硬件</p>
+<p>捆绑资源 fastened：资源迁移的代价很高</p>
+<p>独立资源 unattached：资源可以轻松地随对象被迁移，例如缓存</p>
+<h5 id="对象到资源的绑定"><a class="markdownIt-Anchor" href="#对象到资源的绑定"></a> 对象到资源的绑定</h5>
+<p>通过标识符 identifier：对象需要资源的特定实例，例如特定的数据库</p>
+<p>通过值 value：对象需要资源的值，例如缓存实体集合</p>
+<p>通过类型 type：对象要求只有一种类型的资源可用，例如颜色监视器</p>
+<h4 id="在异构系统中的迁移"><a class="markdownIt-Anchor" href="#在异构系统中的迁移"></a> 在异构系统中的迁移</h4>
+<p>主要问题：目标机器无法执行迁移的代码；进程/线程/处理器上下文高度依赖于硬件、OS和runtime</p>
+<p>在不同平台上实现抽象机：解释型语言、虚拟机</p>
+<h2 id="通信"><a class="markdownIt-Anchor" href="#通信"></a> 通信</h2>
+<h3 id="协议层次"><a class="markdownIt-Anchor" href="#协议层次"></a> 协议层次</h3>
+<h4 id="底层"><a class="markdownIt-Anchor" href="#底层"></a> 底层</h4>
+<p>物理层、数据链路层、网络层；分布式系统的最底层接口通常是网络层</p>
+<h4 id="传输层"><a class="markdownIt-Anchor" href="#传输层"></a> 传输层</h4>
+<p>TCP/UDP</p>
+<h4 id="中间件层"><a class="markdownIt-Anchor" href="#中间件层"></a> 中间件层</h4>
+<p>提供大多数应用需要的通用服务和协议</p>
+<h4 id="应用层"><a class="markdownIt-Anchor" href="#应用层"></a> 应用层</h4>
+<h3 id="通信类型"><a class="markdownIt-Anchor" href="#通信类型"></a> 通信类型</h3>
+<h4 id="是否持久"><a class="markdownIt-Anchor" href="#是否持久"></a> 是否持久</h4>
+<p>瞬时通信：发送者和接收者必须同时存在，否则传输失败，例如电话</p>
+<p>持久通信：发送者和接收者无须同时存在，例如电子邮件</p>
+<h4 id="同步和异步"><a class="markdownIt-Anchor" href="#同步和异步"></a> 同步和异步</h4>
+<p>在请求提交时同步、在请求传输时同步、在收到server回应时同步</p>
+<h3 id="远程过程调用rpc"><a class="markdownIt-Anchor" href="#远程过程调用rpc"></a> 远程过程调用（RPC）</h3>
+<h4 id="基本流程"><a class="markdownIt-Anchor" href="#基本流程"></a> 基本流程</h4>
+<img   class="lazyload" data-original="rpc.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<p>1.client程序调用client存根</p>
+<p>2.client存根创建消息，调用本地OS</p>
+<p>3.OS将消息发给远端OS</p>
+<p>4.远端OS将消息传递给server存根</p>
+<p>5.server存根解包并调用server程序</p>
+<p>6.server使用本地调用并将结果返回给存根</p>
+<p>7.server存根创建消息，调用本地OS</p>
+<p>8.OS将消息发给client OS</p>
+<p>9.client OS将消息传递给client存根</p>
+<p>10.client存根解包结果，并返回给client程序，如同调用了本地代码</p>
+<h4 id="故障处理"><a class="markdownIt-Anchor" href="#故障处理"></a> 故障处理</h4>
+<p>1.client无法定位server：使用特定的返回值/异常处理；让错误引发异常或信号</p>
+<p>2.从client到server的请求消息丢失：设置计时器，超时重发</p>
+<p>3.从server到client的应答消息丢失：设置计时器，对于不幂等的请求，为client请求分配序号，服务器区别不同的请求</p>
+<p>4.server在收到请求后崩溃：等待服务器重启，并重发请求；立即放弃并报告失败；不做任何保证</p>
+<p>5.client在发送请求后崩溃：</p>
+<p>消除 extermination: client存根发送RPC前在日志中记录请求，重启后清除</p>
+<p>再生 reincarnation：把时间划分为不同编号的epoch，当client重启时发送开始新epoch的广播，当收到广播时，所有远端计算被终止，无需日志</p>
+<p>温和再生 gentle reincarnation: 仅在计算所有者无法被找到时，计算才被终止</p>
+<p>过期：赋予每个RPC一个时限，若未完成再申请额外时限</p>
+<h4 id="异步rpc"><a class="markdownIt-Anchor" href="#异步rpc"></a> 异步RPC</h4>
+<img   class="lazyload" data-original="asynchronous-rpc.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 50%;" />
+<p>server收到请求时即回复accept request，本地计算完毕时将返回结果发送给client，client通过中断感知，然后回复ack</p>
+<h4 id="动态绑定"><a class="markdownIt-Anchor" href="#动态绑定"></a> 动态绑定</h4>
+<p>用于灵活定位server</p>
+<p>当client第一次RPC时，client存根发现其还未绑定至server，发送消息至绑定程序；绑定程序检查是否有合适的server已导出匹配的功能和接口版本；若没有，则失败；若有，绑定程序将其句柄和唯一标识符返回给client存根；client存根以这个句柄为目的地址发送请求，server的内核使用其定位到正确的服务器。</p>
+<p>优点：灵活性；支持多个服务器；绑定程序可以确定client和server使用相同的接口版本。</p>
+<p>缺点：导入导出接口额外费时；绑定程序可能会成为大型分布式系统的瓶颈。</p>
+<h3 id="基于消息的通信"><a class="markdownIt-Anchor" href="#基于消息的通信"></a> 基于消息的通信</h3>
+<h4 id="消息种类"><a class="markdownIt-Anchor" href="#消息种类"></a> 消息种类</h4>
+<h5 id="同步消息"><a class="markdownIt-Anchor" href="#同步消息"></a> 同步消息</h5>
+<p>发送者在确定接收者收到消息前一直阻塞</p>
+<h5 id="异步消息"><a class="markdownIt-Anchor" href="#异步消息"></a> 异步消息</h5>
+<p>发送者发送消息后不阻塞，消息保存在发送host或第一通信服务器的本地缓冲中</p>
+<h5 id="瞬时消息"><a class="markdownIt-Anchor" href="#瞬时消息"></a> 瞬时消息</h5>
+<p>只有当接收者存在时才能发送，否则丢失</p>
+<p>例子：TCP/IP的socket原语</p>
+<h5 id="持续消息"><a class="markdownIt-Anchor" href="#持续消息"></a> 持续消息</h5>
+<p>在发送给接收者之前消息一直存在通信系统中，通常在消息队列系统中使用</p>
+<p>面向消息的中间件</p>
+<h3 id="面向流的通信"><a class="markdownIt-Anchor" href="#面向流的通信"></a> 面向流的通信</h3>
+<p>音频、视频、动画、传感器数据是动态的</p>
+<h4 id="通信种类"><a class="markdownIt-Anchor" href="#通信种类"></a> 通信种类</h4>
+<p>异步：对何时传递数据没有限制</p>
+<p>同步：对独立的数据包指定最大的端到端时延</p>
+<p>等时 isochronous：指定最大和最小的端到端时延</p>
+<h4 id="数据流和qos"><a class="markdownIt-Anchor" href="#数据流和qos"></a> 数据流和qos</h4>
+<p>数据流是一种支持同步数据传输的面向连接的通信设施，它是无向的，通常有一个源和多个接受端</p>
+<p>qos：比特率，最大建立会话延迟，最大端到端延迟，最大延迟方差（可使用buffer缓解），最大往返延迟</p>
+<h3 id="组播通信"><a class="markdownIt-Anchor" href="#组播通信"></a> 组播通信</h3>
+<p>应用层组播：将分布式系统的节点组织成覆盖网络并使用该网络传播数据</p>
+<p>gossip-based data dissemination</p>
+<h2 id="同步"><a class="markdownIt-Anchor" href="#同步"></a> 同步</h2>
+<p>进程如何在分布式系统中协作和同步：单CPU系统中，可以通过信号量、锁等方法解决；如果在分布式系统中发生两个时间，很难确定先后，它们隐含依赖共享内存</p>
+<p>如何确定事件相对顺序：一个事件是否先于另一个事件，在不同的机器上很难确定</p>
+<h3 id="时钟同步"><a class="markdownIt-Anchor" href="#时钟同步"></a> 时钟同步</h3>
+<p>进程在时间的发生顺序上保持一致</p>
+<h4 id="lamport算法"><a class="markdownIt-Anchor" href="#lamport算法"></a> Lamport算法</h4>
+<img   class="lazyload" data-original="lamport.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:50%;" />
+<h5 id="偏序关系"><a class="markdownIt-Anchor" href="#偏序关系"></a> 偏序关系</h5>
+<p>如果a,b是一个进程中的两个事件，如果a先于b发生，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>(</mo><mi>a</mi><mo>)</mo><mo>&lt;</mo><mi>C</mi><mo>(</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C(a)&lt;C(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span></span></span></span></p>
+<p>如果a是发送消息m，b是接收消息m，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>(</mo><mi>a</mi><mo>)</mo><mo>&lt;</mo><mi>C</mi><mo>(</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C(a)&lt;C(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span></span></span></span></p>
+<h5 id="算法流程"><a class="markdownIt-Anchor" href="#算法流程"></a> 算法流程</h5>
+<p>每个进程<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>维护一个逻辑计数器<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<p>1.<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>中任意事件发生时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>加一</p>
+<p>2.<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>发送消息m时，消息时间戳<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mi>s</mi><mo>(</mo><mi>m</mi><mo>)</mo><mo>=</mo><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">ts(m)=C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">t</span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span></p>
+<p>3.进程<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>收到消息时，将本地计数器调整为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>{</mo><msub><mi>C</mi><mi>j</mi></msub><mo separator="true">,</mo><mi>t</mi><mi>s</mi><mo>(</mo><mi>m</mi><mo>)</mo><mo>}</mo><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">max\{C_j, ts(m)\}+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">{</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathit">t</span><span class="mord mathit">s</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span><span class="mclose">}</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span></p>
+<p>附加条件：允许两个事件同时发生，但不允许精确地同时发生，将进程的ID附在时间的小数点后面</p>
+<h4 id="向量时间戳"><a class="markdownIt-Anchor" href="#向量时间戳"></a> 向量时间戳</h4>
+<p>lamport算法不能捕获因果关系，即如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mo>(</mo><mi>a</mi><mo>)</mo><mo>&lt;</mo><mi>c</mi><mo>(</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">C(a)&lt;c(b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mclose">)</span><span class="mrel">&lt;</span><span class="mord mathit">c</span><span class="mopen">(</span><span class="mord mathit">b</span><span class="mclose">)</span></span></span></span>，不能说明a先于b发生</p>
+<p>每个进程<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>维护一个数组<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>i</mi></msub><mo>[</mo><mn>1</mn><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi>n</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">VC_i[1...n]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathrm">1</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathit">n</span><span class="mclose">]</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>i</mi></msub><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">VC_i[j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>知道<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>发生的事件的数量，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>i</mi></msub><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">VC_i[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit">i</span><span class="mclose">]</span></span></span></span>表示<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>已经发生的事件的数量。</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>发送消息m时，将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>i</mi></msub><mo>[</mo><mi>i</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">VC_i[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit">i</span><span class="mclose">]</span></span></span></span>加一，并将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">VC_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>作为m的向量时间戳<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>t</mi><mo>(</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">vt(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>，由此接收者可以知晓<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>的时间戳。</p>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">P_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>收到来自<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">P_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>的消息<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">m</span></span></span></span>和向量时间戳<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi><mi>t</mi><mo>(</mo><mi>m</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">vt(m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span></span></span></span>时，令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>j</mi></msub><mo>[</mo><mi>k</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>{</mo><mi>V</mi><msub><mi>C</mi><mi>j</mi></msub><mo>[</mo><mi>k</mi><mo>]</mo><mo separator="true">,</mo><mi>v</mi><mi>t</mi><mo>(</mo><mi>m</mi><mo>)</mo><mo>[</mo><mi>k</mi><mo>]</mo><mo>}</mo></mrow><annotation encoding="application/x-tex">VC_j[k]=max\{VC_j[k],vt(m)[k]\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">{</span><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">m</span><span class="mclose">)</span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mclose">}</span></span></span></span>，并将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>V</mi><msub><mi>C</mi><mi>j</mi></msub><mo>[</mo><mi>j</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">VC_j[j]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.22222em;">V</span><span class="mord"><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07153em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">[</span><span class="mord mathit" style="margin-right:0.05724em;">j</span><span class="mclose">]</span></span></span></span>加一。</p>
+<h3 id="互斥"><a class="markdownIt-Anchor" href="#互斥"></a> 互斥</h3>
+<p>分布式系统中的一些进程需要互斥访问一些资源</p>
+<p>通过中心化的服务器；使用p2p系统完全去中心化；无拓扑结构的完全分布式；使用逻辑环结构的完全分布式；</p>
+<h4 id="中心化互斥"><a class="markdownIt-Anchor" href="#中心化互斥"></a> 中心化互斥</h4>
+<img   class="lazyload" data-original="centralized-mutual-exclusion.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 33%;" />
+<p>优点：保证互斥；公平（访问资源的顺序和请求的顺序相同）；无饥饿；容易实现（请求、授权和释放）</p>
+<p>缺点：协调器会发生单点故障以及成为性能瓶颈；如果进程在发出请求后阻塞，它无法区分协调器故障和访问被拒绝</p>
+<h4 id="令牌环算法"><a class="markdownIt-Anchor" href="#令牌环算法"></a> 令牌环算法</h4>
+<img   class="lazyload" data-original="ring.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>拿到令牌环的节点可以进入临界区。如果某进程不需要进入临界区，那么它将令牌环传递给下一个进程；如果某进程需要进入临界区，那么它需要一直等待令牌。</p>
+<h4 id="分布式算法"><a class="markdownIt-Anchor" href="#分布式算法"></a> 分布式算法</h4>
+<p>根据lamport算法给出的时间戳确定事件发生的先后关系，每个进程都需要配置一个请求等待队列</p>
+<p>当进程需要进入临界区：创建消息{临界区名；进程号；当前时刻}；并将消息发送给其他所有进程</p>
+<p>当进程收到其他进程的请求消息时：没在临界区或者无需进入临界区时，回复OK；在临界区时不做回复，把请求放入队列；不在临界区但已经请求进入，比较自己的消息时间戳和收到的消息的时间戳，早者胜出，进入临界区，并把晚者的请求放入队列，晚者向早者发送OK。</p>
+<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
+<img   class="lazyload" data-original="comparison.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>中心化：请求、授权和释放消息</p>
+<p>分布式：n-1个请求消息和n-1个授权消息</p>
+<h3 id="选举算法"><a class="markdownIt-Anchor" href="#选举算法"></a> 选举算法</h3>
+<p>用于确定让某些进程称为协调者</p>
+<h4 id="bully算法"><a class="markdownIt-Anchor" href="#bully算法"></a> Bully算法</h4>
+<p>每个进程有一个权重，权重更高的进程赢得选举</p>
+<p>1.任何进程可以向其他进程发送选举消息</p>
+<p>2.如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>h</mi><mi>e</mi><mi>a</mi><mi>v</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{heavy}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">h</span><span class="mord mathit">e</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>收到了权重更低的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>l</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{light}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">h</span><span class="mord mathit">t</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>的消息，回复接管消息，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>P</mi><mrow><mi>l</mi><mi>i</mi><mi>g</mi><mi>h</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">P_{light}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.13889em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">h</span><span class="mord mathit">t</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>竞选失败</p>
+<p>3.如果进程没有收到接管消息，那么它赢得精选，向其他进程发送胜利消息</p>
+<h4 id="环选举"><a class="markdownIt-Anchor" href="#环选举"></a> 环选举</h4>
+<p>进程排成环，优先级高的进程赢得选举</p>
+<p>1.任何进程可以向其后继发送选举消息，如果后继崩溃，那么传给下一个后继</p>
+<p>2.如果传递完消息，那么发送者把它自己加入列表，待绕环一周后，根据选举消息选出协调者</p>
+<p>3.最开始发消息的进程根据选举消息中的编号选出协调者，并用coordinator消息通知环中的进程，最高优先级的进程被选为协调者</p>
+<h2 id="一致性和复制性"><a class="markdownIt-Anchor" href="#一致性和复制性"></a> 一致性和复制性</h2>
+<p>复制的优点：可靠性（避免单节点失效）；高性能（地理区域上可扩展）</p>
+<p>复制的缺点：复制透明性；一致性问题（更新的开销，可用性受影响）</p>
+<h3 id="以数据为中心的一致性模型"><a class="markdownIt-Anchor" href="#以数据为中心的一致性模型"></a> 以数据为中心的一致性模型</h3>
+<h4 id="严格一致性"><a class="markdownIt-Anchor" href="#严格一致性"></a> 严格一致性</h4>
+<p>read(x)返回最新的write(x)，严格按照global time，在分布式系统中无法实现</p>
+<img   class="lazyload" data-original="strict-consistency1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="strict-consistency2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 33%;" />
+<h4 id="顺序一致性"><a class="markdownIt-Anchor" href="#顺序一致性"></a> 顺序一致性</h4>
+<p>所有进程的read和write操作以某种顺序执行；每个单独进程的操作按照其程序指定的顺序出现在此序列中；所有进程都会看到与可串行化类似的相同操作交错。</p>
+<h4 id="线性一致性"><a class="markdownIt-Anchor" href="#线性一致性"></a> 线性一致性</h4>
+<p>所有进程的读写都是按照一定的顺序执行的，每个进程的操作都保持指定的顺序</p>
+<h4 id="因果一致性"><a class="markdownIt-Anchor" href="#因果一致性"></a> 因果一致性</h4>
+<p>所有进程都必须以相同的顺序看到潜在因果相关的写入。 在不同的机器上可能会以不同的顺序看到并发写入</p>
+<p><img   class="lazyload" data-original="causal-consistency.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  alt="" /></p>
+<p>对于P3，可能的执行顺序</p>
+<p>P1:W(x)a P2:R(x)a P3:R(x)a P1:W(x)c P3:R(x)c P2:W(x)b P3:R(x)b</p>
+<p>对于P4，可能的执行顺序<br />
+P1:W(x)a P2:R(x)a P4:R(x)a P2:W(x)b P4:R(x)b P1:W(x)c P4:R(x)c</p>
+<h4 id="fifo一致性"><a class="markdownIt-Anchor" href="#fifo一致性"></a> FIFO一致性</h4>
+<p>由单个进程完成的写入按它们发出的顺序被所有其他进程看到，但来自不同进程的写入可能被不同的进程以不同的顺序看到。是因果一致性的弱化</p>
+<img   class="lazyload" data-original="fifo.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 33%;" />
+<p>对于P3，可能的执行顺序：</p>
+<p>P2:W(x)b P3:R(x)b P1:W(x)a P3:R(x)a P2:W(x)c P3:R(x)c</p>
+<h4 id="弱一致性"><a class="markdownIt-Anchor" href="#弱一致性"></a> 弱一致性*</h4>
+<p>• 对与数据存储关联的同步变量的访问顺序一致<br />
+• 在所有先前的写入完成之前，不允许对同步变量执行任何操作<br />
+• 在对同步变量执行所有先前的操作之前，不允许对数据项执行读或写操作。</p>
+<img   class="lazyload" data-original="weak.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<h4 id="释放一致性"><a class="markdownIt-Anchor" href="#释放一致性"></a> 释放一致性*</h4>
+<p>在对共享数据执行读或写操作之前，进程完成的所有先前获取必须已成功完成。<br />
+• 在允许执行释放之前，进程的所有先前读取和写入必须已完成<br />
+• 对同步变量的访问是 FIFO 一致的（不需要顺序一致性）。</p>
+<img   class="lazyload" data-original="release.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<h4 id="入口一致性"><a class="markdownIt-Anchor" href="#入口一致性"></a> 入口一致性*</h4>
+<p>在针对该进程执行了对受保护共享数据的所有更新之前，不允许针对该进程执行同步变量的获取访问。<br />
+• 在允许进程以独占模式访问同步变量之前，没有其他进程可以持有同步变量，即使在非独占模式下也是如此。<br />
+• 执行对同步变量的独占模式访问后，任何其他进程对该同步变量的下一次非独占模式访问可能不会执行，直到它针对该变量的所有者执行。</p>
+<img   class="lazyload" data-original="entry.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<h3 id="以客户为中心的一致性"><a class="markdownIt-Anchor" href="#以客户为中心的一致性"></a> 以客户为中心的一致性</h3>
+<h4 id="最终一致性"><a class="markdownIt-Anchor" href="#最终一致性"></a> 最终一致性</h4>
+<p>若系统长时间没更新，所有副本将成为一致</p>
+<h4 id="单调读"><a class="markdownIt-Anchor" href="#单调读"></a> 单调读</h4>
+<p>对一个变量的读都是最新的结果</p>
+<h4 id="单调写"><a class="markdownIt-Anchor" href="#单调写"></a> 单调写</h4>
+<p>对一个变量的写操作都能完成，每个写操作之间不会重叠，即不会出现一个写操作还在执行的时候执行了另一个写操作</p>
+<h4 id="写后读读写一致性"><a class="markdownIt-Anchor" href="#写后读读写一致性"></a> 写后读（读写一致性）</h4>
+<p>进程对x写操作的结果总是会被该进程对x执行的后续操作看见，即保证读取最新的结果</p>
+<h4 id="读后写写读一致性"><a class="markdownIt-Anchor" href="#读后写写读一致性"></a> 读后写（写读一致性）</h4>
+<p>写的时候，保证替换掉的是之前读出来的值</p>
+<h2 id="容错"><a class="markdownIt-Anchor" href="#容错"></a> 容错</h2>
+<h3 id="可信dependability系统"><a class="markdownIt-Anchor" href="#可信dependability系统"></a> 可信（Dependability）系统</h3>
+<h4 id="可靠性"><a class="markdownIt-Anchor" href="#可靠性"></a> 可靠性</h4>
+<p>衡量系统是否符合其行为的某些权威规范的成功标准。<br />
+系统在给定时间段内未发生任何故障的概率。<br />
+通常用于描述无法修复的系统或系统持续运行至关重要的系统。</p>
+<h4 id="可用性-availability"><a class="markdownIt-Anchor" href="#可用性-availability"></a> 可用性 Availability</h4>
+<p>系统满足其规格的时间比例。<br />
+系统在给定时间 t 运行的概率。</p>
+<h4 id="安全性"><a class="markdownIt-Anchor" href="#安全性"></a> 安全性</h4>
+<p>当系统暂时不符合其规范时，不会发生任何灾难性事件</p>
+<h4 id="可维护性"><a class="markdownIt-Anchor" href="#可维护性"></a> 可维护性</h4>
+<p>衡量修复系统的难易程度</p>
+<h3 id="拜占庭将军问题"><a class="markdownIt-Anchor" href="#拜占庭将军问题"></a> 拜占庭将军问题</h3>
+<p>一言以蔽之，发生拜占庭问题的节点会向其他节点乱发数据</p>
+<p>对于k容错问题（即正确节点的结果唯一），需要2k+1个节点。所有节点广播告诉其他节点其结果，然后每个节点对所有节点取众数。</p>
+<p>对于k一致性问题（正确节点返回的结果不唯一，各节点需要达成一致，例如传感器的数据、是否发起进攻等），需要3k+1个节点。需要两轮广播找出拜占庭节点，具体参考ppt或教材。</p>
+<p>特别地，如果故障节点是静默的，即不向其他节点发送消息：</p>
+<p>对于k容错问题，需要k+1个节点。正常的节点告知其他节点即可。</p>
+<p>对于k一致性问题，需要2k+1个节点。正常的每个节点广播，找众数（众数肯定大于n/2的）。</p>
+<h3 id="恢复"><a class="markdownIt-Anchor" href="#恢复"></a> 恢复</h3>
+<img   class="lazyload" data-original="recovery.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>回退（backward）恢复</p>
+<p>向前（forward）恢复</p>
+<p>检查点</p>
+<img   class="lazyload" data-original="checkpoint1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>系统有规律的设置检查点</p>
+<img   class="lazyload" data-original="checkpoint2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>要恢复到最近保存的状态，需要所有进程协调检查点</p>
+<h2 id="分布式一致性"><a class="markdownIt-Anchor" href="#分布式一致性"></a> 分布式一致性</h2>
+<h3 id="paxos"><a class="markdownIt-Anchor" href="#paxos"></a> Paxos</h3>
+<p>前提假设：不存在拜占庭将军问题，通信信道是可行的</p>
+<p>高容错：2F+1的容错能力</p>
+<p>目的：达到最终一致性，某节点获取数据后，系统中其他节点也能获取到该数据，进而使整个系统达到一致性</p>
+<h4 id="协议中的角色"><a class="markdownIt-Anchor" href="#协议中的角色"></a> 协议中的角色</h4>
+<p>prposer提议发起者：主动发起提议（数值或操作命令），处理客户请求</p>
+<p>acceptor提议接受者：对提议进行表决，超半数投票，则提议被选中</p>
+<p>learner提议学习者：无权投票，只能从接受者获知哪个提议被选中</p>
+<h4 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h4>
+<img   class="lazyload" data-original="paxos1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<img   class="lazyload" data-original="paxos2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>paxos为什么会发生活锁，怎么办？</p>
+<h3 id="raft"><a class="markdownIt-Anchor" href="#raft"></a> Raft</h3>
+<p>略</p>
+<h3 id="gossip"><a class="markdownIt-Anchor" href="#gossip"></a> Gossip</h3>
+<h4 id="优势"><a class="markdownIt-Anchor" href="#优势"></a> 优势</h4>
+<p>可扩展性：一般需要O(logN)轮将信息传播到所有节点</p>
+<p>容错：网络中任何节点的重启或宕机不会影响gossip协议的运行</p>
+<p>鲁棒性：去中心化，所有节点p2p，任何节点出问题不影响其他节点，任何节点可以随时加入或离开，不影响整体质量</p>
+<p>收敛一致性：使信息呈指数级传播，需要传播新信息时，可以快速将消息发送到全局节点，并且所有节点可以在有限的时间内拥有最新的数据</p>
+<h4 id="通信机制"><a class="markdownIt-Anchor" href="#通信机制"></a> 通信机制</h4>
+<p>push：节点A向B推送数据和对应的版本号（key/value/version），B更新A中的新数据</p>
+<p>pull：节点A只推送数据（key/value）给B，B推送本地新数据（key/value/version）给A，A本地更新</p>
+<p>push&amp;pull：与pull类似，A将本地新数据推送到B，B本地更新</p>
+<p>push-pull模型传播的信息数量O(NloglogN)</p>
+<img   class="lazyload" data-original="gossip.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<h2 id="大数据处理系统"><a class="markdownIt-Anchor" href="#大数据处理系统"></a> 大数据处理系统</h2>
+<p>可容错的计算系统</p>
+<p>-磁盘组合构建逻辑存储 hadoop dfs</p>
+<p>-构建容错的并发计算 hadoop mapreduce</p>
+<p>-驻留内存式的数据计算加速 spark</p>
+<p>对于DAG型作业，spark+yarn的优势在哪</p>
+<p>1.DAG型作业是多个mapreduce作业叠加，spark用分布式弹性数据集在内存中维护中间结果，可以避免频繁磁盘IO</p>
+<p>2.yarn只负责资源管理，把复杂的作业逻辑交给应用，虽然应用逻辑变复杂了，但对集群来说可以支持更多的设备和应用</p>
+<p>机制于策略的区别</p>
+<p>变题，一致性，lamport时钟，逻辑时钟，2k3k容错，分布式特点，</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>John Doe</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2021/12/30/DisSys/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;12&#x2F;30&#x2F;DisSys&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;12&#x2F;30&#x2F;DisSys&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/" rel="tag">分布式系统</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/12/11/bp/">从0到1手动实现多层感知机（MLP）<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 分布式系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text"> 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text"> 分布式系统的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E5%B8%83%E5%BC%8F"><span class="toc-text"> 为什么要分布式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E6%A0%87"><span class="toc-text"> 分布式系统的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E4%B8%8E%E6%9C%BA%E5%88%B6"><span class="toc-text"> 策略与机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 分布式系统的类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="toc-text"> 分布式系统结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84%E9%A3%8E%E6%A0%BC"><span class="toc-text"> 分布式系统的结构风格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E7%BB%87%E5%BD%A2%E5%BC%8F"><span class="toc-text"> 分布式系统的组织形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E7%BB%84%E7%BB%87%E4%B8%BA%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text"> 分布式系统组织为中间件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="toc-text"> 进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%A8%8B%E5%BA%8F"><span class="toc-text"> 进程和程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B-2"><span class="toc-text"> 进程和线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text"> 线程的优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 线程和分布式系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text"> 虚拟机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%BF%81%E7%A7%BB"><span class="toc-text"> 代码迁移</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1"><span class="toc-text"> 通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%B1%82%E6%AC%A1"><span class="toc-text"> 协议层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 通信类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8rpc"><span class="toc-text"> 远程过程调用（RPC）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B6%88%E6%81%AF%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="toc-text"> 基于消息的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E6%B5%81%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="toc-text"> 面向流的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E6%92%AD%E9%80%9A%E4%BF%A1"><span class="toc-text"> 组播通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5"><span class="toc-text"> 同步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E5%90%8C%E6%AD%A5"><span class="toc-text"> 时钟同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%92%E6%96%A5"><span class="toc-text"> 互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E4%B8%BE%E7%AE%97%E6%B3%95"><span class="toc-text"> 选举算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%92%8C%E5%A4%8D%E5%88%B6%E6%80%A7"><span class="toc-text"> 一致性和复制性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E6%95%B0%E6%8D%AE%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 以数据为中心的一致性模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%AE%A2%E6%88%B7%E4%B8%BA%E4%B8%AD%E5%BF%83%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text"> 以客户为中心的一致性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E9%94%99"><span class="toc-text"> 容错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1dependability%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 可信（Dependability）系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98"><span class="toc-text"> 拜占庭将军问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D"><span class="toc-text"> 恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text"> 分布式一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#paxos"><span class="toc-text"> Paxos</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raft"><span class="toc-text"> Raft</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gossip"><span class="toc-text"> Gossip</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="toc-text"> 大数据处理系统</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
