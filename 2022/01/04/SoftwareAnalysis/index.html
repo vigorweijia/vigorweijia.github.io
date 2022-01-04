@@ -1,0 +1,573 @@
+
+
+<!DOCTYPE html>
+<html lang="en" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NJU软件分析（静态分析）复习笔记 - Hexo</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content=" Introduction
+静态分析和（动态）测试的区...">
+  <meta name="author" content="John Doe">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+  
+  <link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet">
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">NJU软件分析（静态分析）复习笔记</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 摄影</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">NJU软件分析（静态分析）复习笔记</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>January 04, 2022</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5112</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h2 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h2>
+<p>静态分析和（动态）测试的区别：静态分析指在运行程序前，分析其是否满足一些性质，例如隐私泄露、空指针、类型转换安全、死代码等。</p>
+<p>Soundness：健全，他囊括了所有的正确答案，但可能包含一些非正确的结果</p>
+<p>Completeness：完全性，指可以肯定找到的truth，但不完全。</p>
+<p>False negatives：假阴性。指把truth误分类的部分。</p>
+<p>False positives：假阳性。例如病人未感染病毒，但实际检测呈阳性。</p>
+<img   class="lazyload" data-original="intro1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 25%;" />
+<p>静态分析需要Soundness的原因：确保（或接近）稳健性，同时在分析精度和分析速度之间做出良好的权衡。Soundness对于重要（静态分析）应用程序的集合至关重要，例如编译器优化和程序验证，Soundness也优于其他不需要稳健性的（静态分析）应用程序，例如错误检测，因为更好的Soundness意味着可以找到更多错误。</p>
+<p>如何理解abstraction和over-approximation：</p>
+<img   class="lazyload" data-original="intro2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="intro3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h2 id="intermediate-representation"><a class="markdownIt-Anchor" href="#intermediate-representation"></a> Intermediate Representation</h2>
+<p>编译器：源代码-&gt;词素分析-&gt;语法分析-&gt;语义分析-&gt;中间代码生成-&gt;（静态分析）-&gt;机器代码生成</p>
+<p>AST：语法树，高层表示，通依赖于语言，缺少流信息</p>
+<p>IR：中间表示，可以是三地址形式，底层表示，接近机器语言，静态分析的基本单元</p>
+<p>基本块（Basic blocks）的构造：找出所有的leaders语句，包括程序的第一句、跳转语句目标、跳转语句的下一句；两个leaders之间的所有语句构成一个基本块</p>
+<img   class="lazyload" data-original="ir1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>控制流图（Control flow graphs）的构造：</p>
+<img   class="lazyload" data-original="ir2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>1.跳转语句连向目标</p>
+<p>2.条件跳转语句连向和他直接相邻的下一句</p>
+<p>3.相邻的两个块</p>
+<p>4.entry和exit</p>
+<h2 id="data-flow-analysis-application"><a class="markdownIt-Anchor" href="#data-flow-analysis-application"></a> Data Flow Analysis - Application</h2>
+<p>可达性分析 Reaching Definitions</p>
+<p>活跃变量分析 Live Variables</p>
+<p>表达式可达 Available Expressions</p>
+<img   class="lazyload" data-original="dfaap1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h2 id="data-flow-analysis-foundations"><a class="markdownIt-Anchor" href="#data-flow-analysis-foundations"></a> Data Flow Analysis - Foundations</h2>
+<h3 id="格"><a class="markdownIt-Anchor" href="#格"></a> 格</h3>
+<h4 id="偏序集-poset"><a class="markdownIt-Anchor" href="#偏序集-poset"></a> 偏序集 Poset</h4>
+<p>定义偏序关系，满足自反性、反对称性、传递性</p>
+<h4 id="格-lattice"><a class="markdownIt-Anchor" href="#格-lattice"></a> 格 Lattice</h4>
+<p>如果poset的每对元素都存在最小上界和最大下界，那么称为格，例如整数集。</p>
+<h4 id="完全格-complete-lattice"><a class="markdownIt-Anchor" href="#完全格-complete-lattice"></a> 完全格 Complete Lattice</h4>
+<p>如果Lattice的所有子集都存在最小上界和最大下界，那么称为完全格。整数集就不是完全格，例如它的所有正整数构成的集合就没有最小上界。</p>
+<p>所有的有限格都是完全格。</p>
+<h4 id="乘积格-product-lattice"><a class="markdownIt-Anchor" href="#乘积格-product-lattice"></a> 乘积格 Product Lattice</h4>
+<h3 id="数据流分析框架和不动点"><a class="markdownIt-Anchor" href="#数据流分析框架和不动点"></a> 数据流分析框架和不动点</h3>
+<p>D：方向，L：格，定义了meet和join操作，F：迁移函数</p>
+<p>格本身是单调的，若迁移函数是单调的，那么存在唯一不动点</p>
+<img   class="lazyload" data-original="dfafd6.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>不动点理论：对于一个完全格，如果迁移函数是单调的，那么通过多次迭代可以找到最小和最大的不动点</p>
+<p>需证明：1.存在不动点；2.不动点唯一</p>
+<img   class="lazyload" data-original="dfafd7.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>对于存在性，迁移函数单调，格的高度为H，那么执行超过H次迭代，一定会到达格的最低（高）点，由鸽笼原理，可以知道存在不同的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">k&lt;j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mrel">&lt;</span><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span></span>，使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>f</mi><mi>k</mi></msup><mo>(</mo><mo>⊥</mo><mo>)</mo><mo>=</mo><msup><mi>f</mi><mi>j</mi></msup><mo>(</mo><mo>⊥</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f^k(\perp)=f^j(\perp)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span></span></span></span>。由因为f是单调的，那么必定有不动点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>f</mi><mrow><mi>F</mi><mi>I</mi><mi>X</mi></mrow></msup><mo>=</mo><msup><mi>f</mi><mi>k</mi></msup><mo>(</mo><mo>⊥</mo><mo>)</mo><mo>=</mo><msup><mi>f</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>(</mo><mo>⊥</mo><mo>)</mo><mo>=</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>=</mo><msup><mi>f</mi><mi>j</mi></msup><mo>(</mo><mo>⊥</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f^{FIX}=f^k(\perp)=f^{k+1}(\perp)=...=f^j(\perp)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.849108em;"></span><span class="strut bottom" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">F</span><span class="mord mathit" style="margin-right:0.07847em;">I</span><span class="mord mathit" style="margin-right:0.07847em;">X</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.03148em;">k</span><span class="mbin">+</span><span class="mord mathrm">1</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mrel">=</span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit" style="margin-right:0.05724em;">j</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span></span></span></span></p>
+<img   class="lazyload" data-original="dfafd8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>对于唯一性，假设有多个不动点，其中一个为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span></span></span></span>，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">x=f(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span></span></span></span>，由f是单调的，故<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>f</mi><mi>i</mi></msup><mo>(</mo><mo>⊥</mo><mo>)</mo><mo>≤</mo><msup><mi>f</mi><mi>i</mi></msup><mo>(</mo><mi>x</mi><mo>)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f^i(\perp)\le f^i(x)=x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.824664em;"></span><span class="strut bottom" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mrel">⊥</span><span class="mclose">)</span><span class="mrel">≤</span><span class="mord"><span class="mord mathit" style="margin-right:0.10764em;">f</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord mathit">x</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit">x</span></span></span></span></p>
+<img   class="lazyload" data-original="dfafd9.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>meet和join操作是单调的</p>
+<img   class="lazyload" data-original="dfafd5.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>算法至多执行h*k轮找到不动点，h为格的高度，k为点的个数</p>
+<h3 id="如何理解may和must"><a class="markdownIt-Anchor" href="#如何理解may和must"></a> 如何理解May和Must</h3>
+<img   class="lazyload" data-original="dfafd4.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h3 id="迭代算法和mop"><a class="markdownIt-Anchor" href="#迭代算法和mop"></a> 迭代算法和MOP*</h3>
+<p>Meet-Over-All-Paths Solution (MOP)</p>
+<p>我们的算法没有MOP精确</p>
+<img   class="lazyload" data-original="dfafd3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="dfafd2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 25%;" />
+<h3 id="常量传播"><a class="markdownIt-Anchor" href="#常量传播"></a> 常量传播</h3>
+\text{for s: x=...}\\
+OUT[s]=gen\cup(IN[s]-\{(x,\_)\})
+
+<p>表达式右侧：常量、变量（需求值），二元运算</p>
+<h3 id="worklist-algorithm"><a class="markdownIt-Anchor" href="#worklist-algorithm"></a> Worklist Algorithm</h3>
+<img   class="lazyload" data-original="dfafd1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h2 id="interprocedural-analysis"><a class="markdownIt-Anchor" href="#interprocedural-analysis"></a> Interprocedural Analysis</h2>
+<h3 id="call-graph-construction"><a class="markdownIt-Anchor" href="#call-graph-construction"></a> Call Graph Construction</h3>
+<p>class hierarchy analysis CHA</p>
+<p>target methods (callees)</p>
+<p>dispatch (c, m)，用于分析调用的方法是哪个类的方法，因为我们通常让一个基类指针指向子类对象（子类设置为c）。先从子类对象开始，分析子类c的非抽象方法m’是否和m有相同的名字以及描述符（返回类型和参数），否则在其基类c’中继续使用dispatch(c’, m)查询。</p>
+<p>resolve callsite：对于static call，目标方法就是调用的静态方法；对于special call（构造函数、私有的实例函数、基类的实例函数），目标方法使用dispatch求得；对于virtual call，需要对所有类c’执行dispatch(c’, m)，c’是这个对象的类c，和所有继承于它的子类（可能有多级）。</p>
+<p>构建流程</p>
+<img   class="lazyload" data-original="inter1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>让每个call site连向它的所有目标</p>
+<h3 id="interprocedural-control-flow-graph-icfg"><a class="markdownIt-Anchor" href="#interprocedural-control-flow-graph-icfg"></a> Interprocedural Control-Flow Graph (ICFG)</h3>
+<p>call site</p>
+<p>return site</p>
+<p>call edges</p>
+<p>return edges</p>
+<p>call-to-return edges</p>
+<img   class="lazyload" data-original="inter2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h3 id="interprocedural-data-flow-analysis"><a class="markdownIt-Anchor" href="#interprocedural-data-flow-analysis"></a> Interprocedural Data-Flow Analysis</h3>
+<p>call-to-return edges会kill掉原本的值</p>
+<img   class="lazyload" data-original="inter3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h3 id="interprocedural-constant-propagation"><a class="markdownIt-Anchor" href="#interprocedural-constant-propagation"></a> Interprocedural Constant Propagation</h3>
+<h2 id="pointer-analysis"><a class="markdownIt-Anchor" href="#pointer-analysis"></a> Pointer Analysis</h2>
+<p>让常量传播的结果更加精确</p>
+<p>Allocation-site abstraction：例如在循环中会创建多个对象，需要运行时的内容，把循环中创建的对象抽象为一个</p>
+<p>Context-sensitive/ Context-insensitive：是否关心上下文调用信息</p>
+<p>Flow-insensitive：忽略控制流的顺序</p>
+<img   class="lazyload" data-original="pta1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>Whole-program</p>
+<p>Java中的指针：Local variable，Static field，Instance filed，Array element</p>
+<p>影响指针的表达式：New，Assign，Store，Load，Call</p>
+<h2 id="pointer-analysis-foundations"><a class="markdownIt-Anchor" href="#pointer-analysis-foundations"></a> Pointer Analysis - Foundations</h2>
+<h3 id="pointer-flow-graph-pfg-构建规则"><a class="markdownIt-Anchor" href="#pointer-flow-graph-pfg-构建规则"></a> Pointer Flow Graph (PFG) 构建规则</h3>
+<img   class="lazyload" data-original="ptafd1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="ptafd2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="ptafd3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>PFG依赖于程序：传递图需要靠程序来构建</p>
+<p>反过来？</p>
+<h3 id="pointer-analysis-algorithm"><a class="markdownIt-Anchor" href="#pointer-analysis-algorithm"></a> Pointer Analysis Algorithm</h3>
+<img   class="lazyload" data-original="ptafd4.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>为什么不加<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>→</mo><msub><mi>m</mi><mrow><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">x\rightarrow m_{this}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord mathit">x</span><span class="mrel">→</span><span class="mord"><span class="mord mathit">m</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">t</span><span class="mord mathit">h</span><span class="mord mathit">i</span><span class="mord mathit">s</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>？会添加虚假的points-to信息：</p>
+<img   class="lazyload" data-original="ptafd5.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 25%;" />
+<h3 id="on-the-fly-call-graph-construction"><a class="markdownIt-Anchor" href="#on-the-fly-call-graph-construction"></a> On-the-fly Call Graph Construction</h3>
+<p>Pointer Analysis Algorithm和Call graph construction的结合算法（on the fly）</p>
+<img   class="lazyload" data-original="ptafd6.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<h2 id="pointer-analysis-context-sensitivity"><a class="markdownIt-Anchor" href="#pointer-analysis-context-sensitivity"></a> Pointer Analysis Context Sensitivity</h2>
+<p>Context Sensitive Heap：在生成的object前面加上context</p>
+<p>C.S. Heap：在生成的对象前添加上下文</p>
+<img   class="lazyload" data-original="ptacs3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>C.S. Pointer Analysis Algorithm</p>
+<img   class="lazyload" data-original="ptacs2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="ptacs1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>Call-Site Sensitivity</p>
+<p>Object Sensitivity</p>
+<p>Type Sensitivity</p>
+<p>大体上说，精确性：object &gt; type &gt; call-site；效率：type &gt; object &gt; call-site</p>
+<h2 id="security"><a class="markdownIt-Anchor" href="#security"></a> Security</h2>
+<p>confidentiality: 信息泄露，source是秘密数据，sink是泄露函数</p>
+<p>integrity: 注入错误，例如SQL注入攻击，source是未信任数据，sink是危险计算</p>
+<p>高安全性的内容不能流入低安全性的内容</p>
+<p>explicit flow：显式流，直接传递taint obj</p>
+<p>implicit flow：隐式流，间接传递secret的一些性质，例如秘密数字的正负性</p>
+<p>传播规则和指针分析相同，额外处理source和sink：</p>
+<img   class="lazyload" data-original="security1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<h2 id="datalog"><a class="markdownIt-Anchor" href="#datalog"></a> Datalog</h2>
+<h3 id="datalog语言"><a class="markdownIt-Anchor" href="#datalog语言"></a> datalog语言</h3>
+<p>datalog是告诉计算机做什么的语言，而不是怎么做</p>
+<p>谓词 predicate：数据表格</p>
+<p>原子 atom：datalog的基本单位，形式为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>X</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>X</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>X</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">P(X_1, X_2, ..., X_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.07847em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>)，P是谓词的名称（简单理解为某个表格），X是参数，参数可以是变量也可以是具体的值</p>
+<p>关系原子 retional atom：原子的真假，当表格P中有给定的参数时该判断句为真</p>
+<p>算数原子 arithmetic atom：参数的定量关系，例如age&gt;=18</p>
+<p>规则 datalog rules：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>H</mi><mo>←</mo><msub><mi>B</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>B</mi><mn>2</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>B</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">H \leftarrow B_1,B_2,...,B_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.08125em;">H</span><span class="mrel">←</span><span class="mord"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05017em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05017em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mpunct">,</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05017em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，当body为真时head为真，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>B</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">B_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.05017em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>为原子</p>
+<p>Datalog中只允许安全的规则，例如不能出现无限递归、自相矛盾等</p>
+<p>Datalog program = Facts + Rules</p>
+<h3 id="pointer-analysis-via-datalog"><a class="markdownIt-Anchor" href="#pointer-analysis-via-datalog"></a> Pointer Analysis via Datalog</h3>
+<p><s>真的记得住吗</s></p>
+<p>(Handle Method Calls)</p>
+<img   class="lazyload" data-original="datalog1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 33%;" />
+<h3 id="taint-analysis-via-datalog"><a class="markdownIt-Anchor" href="#taint-analysis-via-datalog"></a> Taint Analysis via Datalog</h3>
+<img   class="lazyload" data-original="datalog2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 33%;" />
+<h2 id="cfl-reachability-and-ifds"><a class="markdownIt-Anchor" href="#cfl-reachability-and-ifds"></a> CFL-Reachability and IFDS</h2>
+<p><s>完全看不懂，放弃了</s></p>
+<p>Realizable Path：&quot;returns&quot;与对应的&quot;calls&quot;匹配的路径；realizable path不一定能被执行，但unrealizable path一定不会被执行；识别realizable path可以避免分析结果被unrealizable path污染</p>
+<h3 id="cfl-reachability"><a class="markdownIt-Anchor" href="#cfl-reachability"></a> CFL-Reachability</h3>
+<p>看不懂，感觉就是把调用关系抽象成了一种括号匹配</p>
+<h3 id="ifds"><a class="markdownIt-Anchor" href="#ifds"></a> IFDS</h3>
+<p>Interprocedural, Finite, Distributive, Subset Problem</p>
+<p>看不懂</p>
+<img   class="lazyload" data-original="ifds1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>MRP感觉是一个比MOP稍微弱一点的东西</p>
+<img   class="lazyload" data-original="ifds2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:33%;" />
+<p>设计flow function</p>
+<p>“可能未初始化的变量”，形如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi><msub><mi>e</mi><mrow><mi>p</mi><mi>a</mi><mi>r</mi><mi>a</mi><mi>m</mi></mrow></msub><mo>⋅</mo><msub><mi>e</mi><mrow><mi>b</mi><mi>o</mi><mi>d</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\lambda e_{param}\cdot e_{body}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord mathit">λ</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">a</span><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">b</span><span class="mord mathit">o</span><span class="mord mathit">d</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>e</mi><mrow><mi>p</mi><mi>a</mi><mi>r</mi><mi>a</mi><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">e_{param}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">e</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">a</span><span class="mord mathit">m</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>我的理解是输入的参数</p>
+<p>call-to-return edge把g删掉的原因：g是全局变量，可能在另一个程序里面被初始化，以免本地的未初始化信息干扰最终的结果</p>
+<p>把a删掉的原因（参见e-p到ret-p）：a是s-p的局部变量，在另一个程序里面是不需要的</p>
+<img   class="lazyload" data-original="ifds3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>连线规则，表示未初始化变量的传递信息，S即未初始化变量的集合</p>
+<img   class="lazyload" data-original="ifds4.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">0\rightarrow 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.64444em;"></span><span class="strut bottom" style="height:0.64444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathrm">0</span><span class="mrel">→</span><span class="mord mathrm">0</span></span></span></span>的原因：让某些不依赖于输入的变量保持原有状态：</p>
+<img   class="lazyload" data-original="ifds5.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<img   class="lazyload" data-original="ifds6.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 40%;" />
+<p>这个g有这样一条realizable path，可能未被初始化</p>
+<img   class="lazyload" data-original="ifds7.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom: 40%;" />
+<p>实际的程序并不会从绿色这条边走</p>
+<img   class="lazyload" data-original="ifds8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:40%;" />
+<h2 id="soundiness"><a class="markdownIt-Anchor" href="#soundiness"></a> Soundiness</h2>
+<h3 id="java-reflection"><a class="markdownIt-Anchor" href="#java-reflection"></a> Java Reflection</h3>
+<img   class="lazyload" data-original="soundness1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>Java Reflection可以在运行期获取任意一个类的字节码，但需要通过字符串的方式来获取，程序静态分析时，是无法知晓字符串的具体内容的。</p>
+<p>解决方法：</p>
+<p>1.字符串常量分析+指针分析</p>
+<p>2.类型推导+字符串分析+指针分析：</p>
+<img   class="lazyload" data-original="soundness2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>例如在方法使用处知晓其类型</p>
+<p>3.动态分析辅助</p>
+<h3 id="native-code"><a class="markdownIt-Anchor" href="#native-code"></a> Native Code</h3>
+<p>Native Code指使用C语言实现的Java方法，Java的静态分析器没法分析C语言代码</p>
+<img   class="lazyload" data-original="soundness3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  style="zoom:25%;" />
+<p>解决方法：</p>
+<p>Native Code Modeling，使用Java代码模拟C代码的功能</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>John Doe</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2022/01/04/SoftwareAnalysis/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2022&#x2F;01&#x2F;04&#x2F;SoftwareAnalysis&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2022&#x2F;01&#x2F;04&#x2F;SoftwareAnalysis&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" rel="tag">静态分析</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/12/30/DisSys/">NJU分布式系统复习笔记<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-text"> Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intermediate-representation"><span class="toc-text"> Intermediate Representation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data-flow-analysis-application"><span class="toc-text"> Data Flow Analysis - Application</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data-flow-analysis-foundations"><span class="toc-text"> Data Flow Analysis - Foundations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%BC"><span class="toc-text"> 格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%88%86%E6%9E%90%E6%A1%86%E6%9E%B6%E5%92%8C%E4%B8%8D%E5%8A%A8%E7%82%B9"><span class="toc-text"> 数据流分析框架和不动点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3may%E5%92%8Cmust"><span class="toc-text"> 如何理解May和Must</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95%E5%92%8Cmop"><span class="toc-text"> 迭代算法和MOP*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD"><span class="toc-text"> 常量传播</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#worklist-algorithm"><span class="toc-text"> Worklist Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interprocedural-analysis"><span class="toc-text"> Interprocedural Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#call-graph-construction"><span class="toc-text"> Call Graph Construction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#interprocedural-control-flow-graph-icfg"><span class="toc-text"> Interprocedural Control-Flow Graph (ICFG)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#interprocedural-data-flow-analysis"><span class="toc-text"> Interprocedural Data-Flow Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#interprocedural-constant-propagation"><span class="toc-text"> Interprocedural Constant Propagation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pointer-analysis"><span class="toc-text"> Pointer Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pointer-analysis-foundations"><span class="toc-text"> Pointer Analysis - Foundations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pointer-flow-graph-pfg-%E6%9E%84%E5%BB%BA%E8%A7%84%E5%88%99"><span class="toc-text"> Pointer Flow Graph (PFG) 构建规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointer-analysis-algorithm"><span class="toc-text"> Pointer Analysis Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#on-the-fly-call-graph-construction"><span class="toc-text"> On-the-fly Call Graph Construction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pointer-analysis-context-sensitivity"><span class="toc-text"> Pointer Analysis Context Sensitivity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#security"><span class="toc-text"> Security</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datalog"><span class="toc-text"> Datalog</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#datalog%E8%AF%AD%E8%A8%80"><span class="toc-text"> datalog语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pointer-analysis-via-datalog"><span class="toc-text"> Pointer Analysis via Datalog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#taint-analysis-via-datalog"><span class="toc-text"> Taint Analysis via Datalog</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cfl-reachability-and-ifds"><span class="toc-text"> CFL-Reachability and IFDS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cfl-reachability"><span class="toc-text"> CFL-Reachability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ifds"><span class="toc-text"> IFDS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#soundiness"><span class="toc-text"> Soundiness</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-reflection"><span class="toc-text"> Java Reflection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#native-code"><span class="toc-text"> Native Code</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
